@@ -1,2 +1,101 @@
-# pwdmanlib
-PwdManLib - Password Management Libraries
+<h2>PwdManLib - Password Management Libraries</h2>
+
+<h3>Problem:</h3>
+Security is an ever-increasingly complex field and taking into consideration all of the factors that go into securing
+user accounts during the software engineering lifecycle is an immense task. Many companies and developers find their
+zero-days / security-holes AFTER deployment of their systems, which exposes their users to to data-loss, identity-theft, and financial issues, which in turn, lowers the companies credibility and can cost the company and the their
+development, both time and money.
+
+<h3>Solution:</h3>
+What if the development team was able to create their system without writing their own account management system?
+That is exactly the goal of PwdManLib. To make a set security tools that is tested and confirmed by the community.
+This project aims to implement a set of C/C++ libraries for developers to use in user / accnt password management.
+These tools are aimed at making user / account management easier for developers to implement in their projects. 
+
+<h3>Requirements:</h3>
+<ol>
+    <li>The project should be open source and FREE for anyone to use.</li>
+    <li>The libraries should be extensible and pluggable with multiple frameworks.</li>
+    <li>Security  should be built-in and have an abstraction layer for developement use.</li> 
+    <li>Should be Cross platform compatible, including mobile devices.</li>
+    <li>Users should be able to store passwordsfrom multiple accounts in one place.</li>
+    <li>Password hashes, salts, and accounts should be stored on remote / cloud DB.</li>
+    <li>Must support ssl / https / and other encrypted networking protocols.</li>
+    <li>Libraries should include support for authentication including multifactor auth.</li>
+    <li>Multiple forms of encryption should be available, including:</li>
+    <ul>
+        <li>standard encryption algorithms: Triple DES, RSA, Blowfish, Twofish, AES</li>
+    </ul>
+    <li>Support for hashing passwords must be included, using:</li>
+    <ul>
+        <li>standard hashing algorithms: SHA256, SHA512, RipeMD, or WHIRLPOOL algorithms</li>
+    </ul>
+    <li>Support for hashing passwords with key-stretching algorithms:
+    <ul>
+        <li>standard key-streching hash-algorithms:  PBKDF2, bcrypt, scrypt, Argon2, PBKDF2
+    </ul>
+    <li>Suppport for captcha and account lockout handling.
+    <li>Support for time-limited token-based automated password recovering, through email.
+</ol>
+
+<h4>Features:</h4>
+These are some of the proposed features that we would like to implement in the future, once requirements have been met.
+
+<ul>
+    <li>Import From Browsers</li>
+    <li>Import From Competitors</li>
+    <li>Multi-Factor Authentication</li>
+    <li>Export Data</li>
+    <li>Automatic Password Capture</li>
+    <li>Automatic Password Replay</li>
+    <li>Fill Web Forms</li>
+    <li>Multiple Form-Filling Identities</li>
+    <li>Actionable Password Strength Report</li>
+    <li>Browser Menu Of Logins</li>
+    <li>Application Passwords</li>
+    <li>Secure Sharing</li>
+    <li>Digital Legacy</li>
+</ul>
+
+<h4>Alternatives:</h4>
+These are some of the alternative solutions were considered / compared to solve this problem.
+
+<ul>
+    <li>Flask-Login</li>
+    <li>Flask-Security/li>        
+    <li>PHPSEC Password Management</li>
+    <li>Google Keyczar</li>
+    <li>Java crypto.spec</li>
+    <li>GuardianProject cacheword</li>
+    <li>Master Password</li>
+    <li>PHP Password Library</li>
+</ul>
+
+<h4>Project Timeline:</h4>
+The timeline as of writing, will end with the initial release 1.0.0A<br>
+This project will be started as an academic project and this timeline corresponds to a weekly schedule as such.<br>
+From the initial release onward, the timeline will reflect a schedule up-to the next release date.<br>
+Dates and release details will be determined by the community of committers to the project.
+Note that week 1 is the week starting on Monday the 13th of February, 2017.<br>
+
+<ul>
+    <p><em>Week1</em>:<br>Finish documentation for project including a contributing.md page and define initial project structure / architecture.
+                      Define api structure (if needed) and usage of libraries in detail.</p>
+    <p><em>Week2</em>:<br>Define dependencies and framework / platforms that will be supported and how.
+                      Start construction of hashing and encryption utilities (using libraries for the crypto).</p>
+    <p><em>Week3</em>:<br>Test and debug hasing / encryption utils. Define interfaces for framework communication and adapters as needed. 
+                      Define network architecture and start construction of interfaces.</p>
+    <p><em>Week4</em>:<br>Construction of network interfaces continues and plugins to initially supported frameworks. 
+                      Define authentication methods for initial release and start construction of auth libraries.</p>
+    <p><em>Week5</em>:<br>Test and debug network libraries, auth libraries, and interface libraries. Thorough vetting of auth process occurs. 
+                      Define methods and routines needed for password recovery and captcha verification.</p>
+    <p><em>Week6</em>:<br>Finish / close out any outstanding issues and ensure all major bugs are fixed. Test, debug, and confirm all functionalities
+                      needed for initial release / requirements are met. Code cleanup and documentation additions as needed. Minor bug fixes if time permits.</p>
+</ul>
+
+<h4>Contact:</h4>
+To contact the project director for more information or to provide feedback, please see the following links:
+
+&nbsp;&nbsp;    Website          &nbsp;&nbsp;     @      https://devopsec.net<br>
+&nbsp;&nbsp;    Github    &nbsp; &nbsp;&nbsp;     @      https://github.com/devopsec
+
