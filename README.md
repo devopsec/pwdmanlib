@@ -1,18 +1,22 @@
-<h2>PwdManLib - Password Management Libraries</h2>
+<h1>PwdManLib - Password Management Libraries</h1>
 
-<h3>Problem:</h3>
-Security is an ever-increasingly complex field and taking into consideration all of the factors that go into securing
-user accounts during the software engineering lifecycle is an immense task. Many companies and developers find their
-zero-days / security-holes AFTER deployment of their systems, which exposes their users to to data-loss, identity-theft, and financial issues, which in turn, lowers the companies credibility and can cost the company and the their
-development, both time and money.
+<h2>Problem:</h2>
+</p>
+    Security is an ever-increasingly complex field and taking into consideration all of the factors that go into securing
+    user accounts during the software engineering lifecycle is an immense task. Many companies and developers find their
+    zero-days / security-holes AFTER deployment of their systems, which exposes their users to to data-loss, identity-theft, and financial issues, which in turn, lowers the companies credibility and can cost the company and the their
+    development, both time and money.
+</p>
 
-<h3>Solution:</h3>
-What if the development team was able to create their system without writing their own account management system?
-That is exactly the goal of PwdManLib. To make a set security tools that is tested and confirmed by the community.
-This project aims to implement a set of C/C++ libraries for developers to use in user / accnt password management.
-These tools are aimed at making user / account management easier for developers to implement in their projects. 
+<h2>Solution:</h2>
+<p>
+    What if the development team was able to create their system without writing their own account management system?
+    That is exactly the goal of PwdManLib. To make a set security tools that is tested and confirmed by the community.
+    This project aims to implement a set of C/C++ libraries for developers to use in user / accnt password management.
+    These tools are aimed at making user / account management easier for developers to implement in their projects. 
+</p>
 
-<h3>Requirements:</h3>
+<h2>Requirements:</h2>
 <ol>
     <li>The project should be open source and FREE for anyone to use.</li>
     <li>The libraries should be extensible and pluggable with multiple frameworks.</li>
@@ -38,8 +42,8 @@ These tools are aimed at making user / account management easier for developers 
     <li>Support for time-limited token-based automated password recovering, through email.
 </ol>
 
-<h4>Features:</h4>
-These are some of the proposed features that we would like to implement in the future, once requirements have been met.
+<h3>Features:</h3>
+<p>These are some of the proposed features that we would like to implement in the future, once requirements have been met.</p>
 
 <ul>
     <li>Import From Browsers</li>
@@ -57,12 +61,12 @@ These are some of the proposed features that we would like to implement in the f
     <li>Digital Legacy</li>
 </ul>
 
-<h4>Alternatives:</h4>
-These are some of the alternative solutions were considered / compared to solve this problem.
+<h3>Alternatives:</h3>
+<p>These are some of the alternative solutions that were considered / compared to solve this problem.</p>
 
 <ul>
     <li>Flask-Login</li>
-    <li>Flask-Security/li>        
+    <li>Flask-Security</li>        
     <li>PHPSEC Password Management</li>
     <li>Google Keyczar</li>
     <li>Java crypto.spec</li>
@@ -71,13 +75,15 @@ These are some of the alternative solutions were considered / compared to solve 
     <li>PHP Password Library</li>
 </ul>
 
-<h4>Project Timeline:</h4>
-The timeline as of writing, will end with the initial release 1.0.0A<br>
-This project will be started as an academic project and this timeline corresponds to a weekly schedule as such.<br>
-From the initial release onward, the timeline will reflect a schedule up-to the next release date.<br>
-Dates and release details will be determined by the community of committers to the project.
-Note that week 1 is the week starting on Monday the 13th of February, 2017.<br>
+<h3>Project Timeline:</h3>
+<p>
+    The timeline as of writing, will end with the initial release 1.0.0A<br>
+    This project will be started as an academic project and this timeline corresponds to a weekly schedule as such.<br>
+    From the initial release onward, the timeline will reflect a schedule up-to the next release date.<br>
+    Dates and release details will be determined by the community of committer's to the project.<br>
+</p>
 
+---
 <ul>
     <p><em>Week1</em>:<br>Finish documentation for project including a contributing.md page and define initial project structure / architecture.
                       Define api structure (if needed) and usage of libraries in detail.</p>
@@ -93,9 +99,18 @@ Note that week 1 is the week starting on Monday the 13th of February, 2017.<br>
                       needed for initial release / requirements are met. Code cleanup and documentation additions as needed. Minor bug fixes if time permits.</p>
 </ul>
 
+---
+<h4>Contributing:</h4>
+<p>Guidelines for contributing to the project can be found within this repo, in CONTRIBUTING.md</p>
+
 <h4>Contact:</h4>
-To contact the project director for more information or to provide feedback, please see the following links:
+<p>To contact the project director for more information or to provide feedback, please see the following links:</p>
 
-&nbsp;&nbsp;    Website          &nbsp;&nbsp;     @      https://devopsec.net<br>
-&nbsp;&nbsp;    Github    &nbsp; &nbsp;&nbsp;     @      https://github.com/devopsec
+&nbsp;&nbsp;    Website          &nbsp; &nbsp;     @    &nbsp; &nbsp;      https://devopsec.net<br>
+&nbsp;&nbsp;    Github    &nbsp; &nbsp; &nbsp;     @    &nbsp; &nbsp;      https://github.com/devopsec
 
+<h3>Updates:</h3>
+<p>
+    Project is kicking off! Expect more updates to documentation, adding dependencies to tree, some architecture definitions and preliminary structures / wrappers.<br>
+    Also, note that the project will be licensed under Apache License V2 now instead of GPL  to be more openly consumable and flexible for anyone to use the libraries! 
+</p>

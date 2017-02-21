@@ -1,2 +1,0 @@
-/usr/bin/ar qc libc__.a  CMakeFiles/c__.dir/library.cpp.o
-/usr/bin/ranlib libc__.a
