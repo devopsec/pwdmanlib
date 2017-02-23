@@ -13,7 +13,7 @@ This allows a discussion to be opened and feedback / advise to given if necessar
 Fork a clone of the repo to your github and clone the fork to your machine.<br>
 This can be done using your preferred IDE (tutorial for Jetbrains Clion to come..) or using the git cmd:
 ```
-git clone --recursive <fork url>
+git clone --recursive <your fork url>
 ```
 Note: biicode is the required dependency tracker of choice for this project.
 

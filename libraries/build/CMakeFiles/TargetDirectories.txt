@@ -1,0 +1,4 @@
+/pwdmanlib/libraries/build/CMakeFiles/edit_cache.dir
+/pwdmanlib/libraries/build/CMakeFiles/rebuild_cache.dir
+/pwdmanlib/libraries/build/CMakeFiles/test.dir
+/pwdmanlib/libraries/build/CMakeFiles/biitest.dir

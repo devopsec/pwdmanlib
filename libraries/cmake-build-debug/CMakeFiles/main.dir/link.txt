@@ -1,0 +1,1 @@
+/usr/bin/c++   -g   CMakeFiles/main.dir/src/library.cpp.o CMakeFiles/main.dir/src/server.cpp.o CMakeFiles/main.dir/src/frontend.cpp.o CMakeFiles/main.dir/src/auth.cpp.o CMakeFiles/main.dir/src/crypto.cpp.o  -o ../bin/main  -L/pwdmanlib/libraries/deps/boost_1_60_0/libs -rdynamic -Wl,-rpath,/pwdmanlib/libraries/deps/boost_1_60_0/libs 
