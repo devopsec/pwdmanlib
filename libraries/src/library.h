@@ -17,8 +17,8 @@
  *                                                                              *
  ********************************************************************************/
 
-#ifndef LIBS_LIBRARY_H
-#define LIBS_LIBRARY_H
+#ifndef PWDMANLIB_LIBRARY_H
+#define PWDMANLIB_LIBRARY_H
 
 void hello();
 

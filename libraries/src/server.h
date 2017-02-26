@@ -17,24 +17,11 @@
  *                                                                              *
  ********************************************************************************/
 
-/* standard includes */
-#include <stdio.h>
-#include <string.h>
-#include <iostream>
+#ifndef PWDMANLIB_SERVER_H
+#define PWDMANLIB_SERVER_H
 
-/* internal includes */
-#include "library.h"
+/********************************************************************************
+ *               Encapsulation of Server root dir and port                      *
+ ********************************************************************************/
 
-/* external includes */
-#include "openssl/md5.h"
-#include "sha.h"
-#include "filters.h"
-#include "hex.h"
-
-int main() {
-    CryptoPP::SHA1 sha1;
-    std::string source = "SomeSuperSecretTestString";
-    std::string hash = "";
-    CryptoPP::StringSource(source, true, new CryptoPP::HashFilter(sha1, new CryptoPP::HexEncoder(new CryptoPP::StringSink(hash))));
-    std::cout << hash;
-}
+#endif //PWDMANLIB_SERVER_H

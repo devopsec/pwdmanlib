@@ -36,69 +36,174 @@
 #include <sys/types.h>
 #include <unistd.h>
 
-#define CONNMAX 1000
-#define BYTES   1024
+#define CONNMAX     1000
+#define SOCKBUFF    1024
 
-char *ROOT;
-int listenfd, clients[CONNMAX];
-void error(char *);
-void startServer(char *);
+/* function declarations */
+int start_server(char *);
 void respond(int);
 
-int main() {
-    int create_sock, new_sock;
-    socklen_t address_len;
-    struct sockaddr_in address;
+/* DEBUG: TEMP global vars */
+int clients[CONNMAX];
+char *root_dir;
 
-    size_t bufsize = BUFSIZ;
-    char *buffer = (char*) malloc(bufsize);
+int main(int argc, char* argv[]) {
+    char *root_dir = getenv("PWD");
+    printf("Server root dir set to: %s\n", root_dir);
+    int clients[CONNMAX] = {0}; /*   1000 client cap, to avoid small-scale DDOS    */
+    int listen_sock, new_sock;  /* client init to 0, indicates no client connected */
+    char ch;                    /* getopt char holder */
+    socklen_t addrlen;          /* client sock addr len */
+    struct sockaddr_in client_addr;
+    uint16_t port = htons(9630); //default port
 
-    if ((create_sock = socket(AF_INET, SOCK_STREAM, 0)) > 0) {
-        printf("Socket has been created\n");
+    /*          parse the cmd line args          */
+    //TODO: add error checking
+    while((ch = getopt (argc, argv, "p:r:")) != -1) {
+        switch (ch) {
+            case 'r':
+                root_dir = malloc(strlen(optarg));
+                strcpy(root_dir, optarg);
+                break;
+            case 'p':
+                port = htons(optarg);
+                break;
+            case '?':
+                fprintf(stderr, "Wrong arguments given!!!\n");
+                exit(1);
+            default:
+                exit(1);
+        }
     }
+    listen_sock = start_server(port);
 
-    /* address / routing settingsd */
-    address.sin_family = AF_INET;
-    address.sin_addr.s_addr = INADDR_ANY;
-    address.sin_port = htons(9630);
-
-    if (bind(create_sock, (struct sockaddr*) &address, sizeof(address)) == 0) {
-        printf("Binding to socket\n");
-    }
-
+    int slot = 0;
     while (1) {
-        if (listen(create_sock, 10) < 0) {
-            perror("Error listening to socket:");
+        addrlen = sizeof(client_addr);
+
+        if ((clients[slot] = accept(listen_sock, (struct sockaddr*) &client_addr, &addrlen)) < 0) {
+            perror("Error accepting traffic on socket slot:");
             exit(1);
         }
-
-        if ((new_sock = accept(create_sock, (struct sockaddr*) &address, &address_len)) < 0) {
-            perror("Error accepting traffic on socket:");
-            exit(1);
+        else if (clients[slot] > 0) {
+            printf("Client connection established on slot: %i\n", slot);
+            if ( fork() == 0 ) {
+                respond(slot);
+                exit(0);
+            }
         }
 
-        if (new_sock > 0) {
-            printf("Client connection established!\n");
+        while (clients[slot]!=-1) {
+            slot = (slot + 1) % CONNMAX;
         }
-
-        /* write buffer to new sock */
-        recv(new_sock, buffer, bufsize, 0);
-        printf("%s\n", buffer);
-        /* write RESPONSE headers to sock */
-        write(new_sock, "HTTP/2.0 200 OK\n", 16);
-        write(new_sock, "Content-length: 46\n", 19);
-        write(new_sock, "Content-Type: text/html\n", 26);
-        write(new_sock, "Accept-Ranges: bytes\n", 21);
-        write(new_sock, "Connection: close\n", 18);
-        write(new_sock, "Content-Type: text/html; charset=UTF-8\n", 39);
-        write(new_sock, "Content-Encoding: gzip,deflate\n", 31);
-        write(new_sock, "<html><body><H1>Welcome to the PwdManLib dashboard!</H1></body></html>", 70);
-        close(new_sock);
     }
-    close(create_sock);
-    free(buffer);
     return 0;
 }
+
+int start_server(char *port) {
+    int listen_sock;
+    struct addrinfo hints, *res, *p;
+    memset(&hints, 0, sizeof(hints));
+    hints.ai_family = AF_INET;
+    hints.ai_socktype = SOCK_STREAM;
+    hints.ai_flags = AI_PASSIVE;
+
+    /* get host address info */
+    if (getaddrinfo(NULL, port, &hints, &res) != 0) {
+        perror("Error occurred while getting server address info:");
+        exit(1);
+    }
+
+    /* create fd's for listening sock poss addresses */
+    for (p = res; p != NULL; p = p->ai_next) {
+        if ((listen_sock = socket(p->ai_family, p->ai_socktype, 0)) > 0) {
+            /*                bind the sock            */
+            if (bind(listen_sock, p->ai_addr, p->ai_addrlen) == 0) {
+                printf("Server socket bound to port: %s\n", port); break;
+            }
+        }
+    }
+    if (p == NULL || listen_sock == NULL) {
+        perror("Error occurred while creating or binding listen_sock");
+        exit(1);
+    }
+    freeaddrinfo(res);
+
+    /* listen for incoming connections */
+    if (listen (listen_sock, 1000000) != 0) {
+        perror("Error listening listening for clients:");
+        exit(1);
+    }
+    return listen_sock;
+}
+
+void respond(int n) { /* serve response for client request */
+    char mesg[99999], *reqline[3], data_to_send[SOCKBUFF], path[99999];
+    int rcvd, fd, bytes_read;
+
+    memset( (void*)mesg, (int)'\0', 99999 );
+
+    rcvd=recv(clients[n], mesg, 99999, 0);
+
+    if (rcvd<0) {   /* receive error */
+        fprintf(stderr, ("recv() error\n"));
+    }
+    else if (rcvd==0) {   /* receive socket closed */
+        fprintf(stderr, "Client disconnected upexpectedly.\n");
+    }
+    else { /* message received */
+        printf("%s", mesg);
+        reqline[0] = strtok (mesg, " \t\n");
+        if (strncmp(reqline[0], "GET\0", 4)==0) {
+            reqline[1] = strtok (NULL, " \t");
+            reqline[2] = strtok (NULL, " \t\n");
+
+            if (strncmp( reqline[2], "HTTP/1.0", 8)!=0 && strncmp(reqline[2], "HTTP/1.1", 8)!=0) {
+                write(clients[n], "HTTP/1.0 400 Bad Request\n", 25);
+            }
+
+            else {
+                /* If no file specified, index.html will be opened by default */
+                if (strncmp(reqline[1], "/\0", 2) == 0) {
+                    reqline[1] = "/index.html";
+                }
+
+                strcpy(path, root_dir);
+                strcpy(&path[strlen(root_dir)], reqline[1]);
+                printf("file: %s\n", path);
+
+                if ( (fd=open(path, O_RDONLY))!=-1 ) { /* FILE FOUND */
+                    send(clients[n], "HTTP/1.0 200 OK\n\n", 17, 0);
+                    while ((bytes_read=read(fd, data_to_send, SOCKBUFF)) > 0) {
+                        write(clients[n], data_to_send, bytes_read);
+                    }
+                }
+                else { /* FILE NOT FOUND */
+                    write(clients[n], "HTTP/1.0 404 Not Found\n", 23);
+                }
+            }
+        } /* CLOSING client socket */
+    }  /* Send and receive operations are DISABLED */
+    shutdown(clients[n], SHUT_RDWR);
+    close(clients[n]);
+    clients[n]=-1;
+}
+
+
+///* write buffer to new sock */
+//recv(new_sock, buffer, bufsize, 0);
+//printf("%s\n", buffer);
+///* write RESPONSE headers to sock */
+//write(new_sock, "HTTP/2.0 200 OK\n", 16);
+//write(new_sock, "Content-length: 46\n", 19);
+//write(new_sock, "Content-Type: text/html\n", 26);
+//write(new_sock, "Accept-Ranges: bytes\n", 21);
+//write(new_sock, "Connection: close\n", 18);
+//write(new_sock, "Content-Type: text/html; charset=UTF-8\n", 39);
+//write(new_sock, "Content-Encoding: gzip,deflate\n", 31);
+//write(new_sock, "<html><body><H1>Welcome to the PwdManLib dashboard!</H1></body></html>", 70);
+//close(new_sock);
+
 
 /*=======================  More Settings for Headers ==========================*/
 /*-----------------------        Request Headers     --------------------------*/

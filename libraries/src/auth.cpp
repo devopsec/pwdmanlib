@@ -17,7 +17,5 @@
  *                                                                              *
  ********************************************************************************/
 
-#include "boost/math"
+#include <boost/math/common_factor.hpp>
 #include "boost/regex.h"
-
-#include "cryptopp565"
