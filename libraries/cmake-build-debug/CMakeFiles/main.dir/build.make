@@ -81,52 +81,52 @@ CMakeFiles/main.dir/src/library.cpp.o.provides: CMakeFiles/main.dir/src/library.
 CMakeFiles/main.dir/src/library.cpp.o.provides.build: CMakeFiles/main.dir/src/library.cpp.o
 
 
-CMakeFiles/main.dir/src/server.cpp.o: CMakeFiles/main.dir/flags.make
-CMakeFiles/main.dir/src/server.cpp.o: ../src/server.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/pwdmanlib/libraries/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/main.dir/src/server.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/main.dir/src/server.cpp.o -c /pwdmanlib/libraries/src/server.cpp
+CMakeFiles/main.dir/src/server.c.o: CMakeFiles/main.dir/flags.make
+CMakeFiles/main.dir/src/server.c.o: ../src/server.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/pwdmanlib/libraries/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/main.dir/src/server.c.o"
+	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/main.dir/src/server.c.o   -c /pwdmanlib/libraries/src/server.c
 
-CMakeFiles/main.dir/src/server.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/main.dir/src/server.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /pwdmanlib/libraries/src/server.cpp > CMakeFiles/main.dir/src/server.cpp.i
+CMakeFiles/main.dir/src/server.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/main.dir/src/server.c.i"
+	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /pwdmanlib/libraries/src/server.c > CMakeFiles/main.dir/src/server.c.i
 
-CMakeFiles/main.dir/src/server.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/main.dir/src/server.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /pwdmanlib/libraries/src/server.cpp -o CMakeFiles/main.dir/src/server.cpp.s
+CMakeFiles/main.dir/src/server.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/main.dir/src/server.c.s"
+	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /pwdmanlib/libraries/src/server.c -o CMakeFiles/main.dir/src/server.c.s
 
-CMakeFiles/main.dir/src/server.cpp.o.requires:
+CMakeFiles/main.dir/src/server.c.o.requires:
 
-.PHONY : CMakeFiles/main.dir/src/server.cpp.o.requires
+.PHONY : CMakeFiles/main.dir/src/server.c.o.requires
 
-CMakeFiles/main.dir/src/server.cpp.o.provides: CMakeFiles/main.dir/src/server.cpp.o.requires
-	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/server.cpp.o.provides.build
-.PHONY : CMakeFiles/main.dir/src/server.cpp.o.provides
+CMakeFiles/main.dir/src/server.c.o.provides: CMakeFiles/main.dir/src/server.c.o.requires
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/server.c.o.provides.build
+.PHONY : CMakeFiles/main.dir/src/server.c.o.provides
 
-CMakeFiles/main.dir/src/server.cpp.o.provides.build: CMakeFiles/main.dir/src/server.cpp.o
+CMakeFiles/main.dir/src/server.c.o.provides.build: CMakeFiles/main.dir/src/server.c.o
 
 
-CMakeFiles/main.dir/src/frontend.cpp.o: CMakeFiles/main.dir/flags.make
-CMakeFiles/main.dir/src/frontend.cpp.o: ../src/frontend.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/pwdmanlib/libraries/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/main.dir/src/frontend.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/main.dir/src/frontend.cpp.o -c /pwdmanlib/libraries/src/frontend.cpp
+CMakeFiles/main.dir/src/gui/frontend.cpp.o: CMakeFiles/main.dir/flags.make
+CMakeFiles/main.dir/src/gui/frontend.cpp.o: ../src/gui/frontend.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/pwdmanlib/libraries/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/main.dir/src/gui/frontend.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/main.dir/src/gui/frontend.cpp.o -c /pwdmanlib/libraries/src/gui/frontend.cpp
 
-CMakeFiles/main.dir/src/frontend.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/main.dir/src/frontend.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /pwdmanlib/libraries/src/frontend.cpp > CMakeFiles/main.dir/src/frontend.cpp.i
+CMakeFiles/main.dir/src/gui/frontend.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/main.dir/src/gui/frontend.cpp.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /pwdmanlib/libraries/src/gui/frontend.cpp > CMakeFiles/main.dir/src/gui/frontend.cpp.i
 
-CMakeFiles/main.dir/src/frontend.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/main.dir/src/frontend.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /pwdmanlib/libraries/src/frontend.cpp -o CMakeFiles/main.dir/src/frontend.cpp.s
+CMakeFiles/main.dir/src/gui/frontend.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/main.dir/src/gui/frontend.cpp.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /pwdmanlib/libraries/src/gui/frontend.cpp -o CMakeFiles/main.dir/src/gui/frontend.cpp.s
 
-CMakeFiles/main.dir/src/frontend.cpp.o.requires:
+CMakeFiles/main.dir/src/gui/frontend.cpp.o.requires:
 
-.PHONY : CMakeFiles/main.dir/src/frontend.cpp.o.requires
+.PHONY : CMakeFiles/main.dir/src/gui/frontend.cpp.o.requires
 
-CMakeFiles/main.dir/src/frontend.cpp.o.provides: CMakeFiles/main.dir/src/frontend.cpp.o.requires
-	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/frontend.cpp.o.provides.build
-.PHONY : CMakeFiles/main.dir/src/frontend.cpp.o.provides
+CMakeFiles/main.dir/src/gui/frontend.cpp.o.provides: CMakeFiles/main.dir/src/gui/frontend.cpp.o.requires
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/gui/frontend.cpp.o.provides.build
+.PHONY : CMakeFiles/main.dir/src/gui/frontend.cpp.o.provides
 
-CMakeFiles/main.dir/src/frontend.cpp.o.provides.build: CMakeFiles/main.dir/src/frontend.cpp.o
+CMakeFiles/main.dir/src/gui/frontend.cpp.o.provides.build: CMakeFiles/main.dir/src/gui/frontend.cpp.o
 
 
 CMakeFiles/main.dir/src/auth.cpp.o: CMakeFiles/main.dir/flags.make
@@ -177,25 +177,207 @@ CMakeFiles/main.dir/src/crypto.cpp.o.provides: CMakeFiles/main.dir/src/crypto.cp
 CMakeFiles/main.dir/src/crypto.cpp.o.provides.build: CMakeFiles/main.dir/src/crypto.cpp.o
 
 
+CMakeFiles/main.dir/src/util/os_info.c.o: CMakeFiles/main.dir/flags.make
+CMakeFiles/main.dir/src/util/os_info.c.o: ../src/util/os_info.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/pwdmanlib/libraries/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building C object CMakeFiles/main.dir/src/util/os_info.c.o"
+	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/main.dir/src/util/os_info.c.o   -c /pwdmanlib/libraries/src/util/os_info.c
+
+CMakeFiles/main.dir/src/util/os_info.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/main.dir/src/util/os_info.c.i"
+	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /pwdmanlib/libraries/src/util/os_info.c > CMakeFiles/main.dir/src/util/os_info.c.i
+
+CMakeFiles/main.dir/src/util/os_info.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/main.dir/src/util/os_info.c.s"
+	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /pwdmanlib/libraries/src/util/os_info.c -o CMakeFiles/main.dir/src/util/os_info.c.s
+
+CMakeFiles/main.dir/src/util/os_info.c.o.requires:
+
+.PHONY : CMakeFiles/main.dir/src/util/os_info.c.o.requires
+
+CMakeFiles/main.dir/src/util/os_info.c.o.provides: CMakeFiles/main.dir/src/util/os_info.c.o.requires
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/util/os_info.c.o.provides.build
+.PHONY : CMakeFiles/main.dir/src/util/os_info.c.o.provides
+
+CMakeFiles/main.dir/src/util/os_info.c.o.provides.build: CMakeFiles/main.dir/src/util/os_info.c.o
+
+
+CMakeFiles/main.dir/src/util/vector.c.o: CMakeFiles/main.dir/flags.make
+CMakeFiles/main.dir/src/util/vector.c.o: ../src/util/vector.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/pwdmanlib/libraries/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building C object CMakeFiles/main.dir/src/util/vector.c.o"
+	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/main.dir/src/util/vector.c.o   -c /pwdmanlib/libraries/src/util/vector.c
+
+CMakeFiles/main.dir/src/util/vector.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/main.dir/src/util/vector.c.i"
+	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /pwdmanlib/libraries/src/util/vector.c > CMakeFiles/main.dir/src/util/vector.c.i
+
+CMakeFiles/main.dir/src/util/vector.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/main.dir/src/util/vector.c.s"
+	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /pwdmanlib/libraries/src/util/vector.c -o CMakeFiles/main.dir/src/util/vector.c.s
+
+CMakeFiles/main.dir/src/util/vector.c.o.requires:
+
+.PHONY : CMakeFiles/main.dir/src/util/vector.c.o.requires
+
+CMakeFiles/main.dir/src/util/vector.c.o.provides: CMakeFiles/main.dir/src/util/vector.c.o.requires
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/util/vector.c.o.provides.build
+.PHONY : CMakeFiles/main.dir/src/util/vector.c.o.provides
+
+CMakeFiles/main.dir/src/util/vector.c.o.provides.build: CMakeFiles/main.dir/src/util/vector.c.o
+
+
+CMakeFiles/main.dir/src/util/oop.c.o: CMakeFiles/main.dir/flags.make
+CMakeFiles/main.dir/src/util/oop.c.o: ../src/util/oop.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/pwdmanlib/libraries/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building C object CMakeFiles/main.dir/src/util/oop.c.o"
+	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/main.dir/src/util/oop.c.o   -c /pwdmanlib/libraries/src/util/oop.c
+
+CMakeFiles/main.dir/src/util/oop.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/main.dir/src/util/oop.c.i"
+	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /pwdmanlib/libraries/src/util/oop.c > CMakeFiles/main.dir/src/util/oop.c.i
+
+CMakeFiles/main.dir/src/util/oop.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/main.dir/src/util/oop.c.s"
+	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /pwdmanlib/libraries/src/util/oop.c -o CMakeFiles/main.dir/src/util/oop.c.s
+
+CMakeFiles/main.dir/src/util/oop.c.o.requires:
+
+.PHONY : CMakeFiles/main.dir/src/util/oop.c.o.requires
+
+CMakeFiles/main.dir/src/util/oop.c.o.provides: CMakeFiles/main.dir/src/util/oop.c.o.requires
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/util/oop.c.o.provides.build
+.PHONY : CMakeFiles/main.dir/src/util/oop.c.o.provides
+
+CMakeFiles/main.dir/src/util/oop.c.o.provides.build: CMakeFiles/main.dir/src/util/oop.c.o
+
+
+CMakeFiles/main.dir/src/test/vector-test.c.o: CMakeFiles/main.dir/flags.make
+CMakeFiles/main.dir/src/test/vector-test.c.o: ../src/test/vector-test.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/pwdmanlib/libraries/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building C object CMakeFiles/main.dir/src/test/vector-test.c.o"
+	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/main.dir/src/test/vector-test.c.o   -c /pwdmanlib/libraries/src/test/vector-test.c
+
+CMakeFiles/main.dir/src/test/vector-test.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/main.dir/src/test/vector-test.c.i"
+	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /pwdmanlib/libraries/src/test/vector-test.c > CMakeFiles/main.dir/src/test/vector-test.c.i
+
+CMakeFiles/main.dir/src/test/vector-test.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/main.dir/src/test/vector-test.c.s"
+	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /pwdmanlib/libraries/src/test/vector-test.c -o CMakeFiles/main.dir/src/test/vector-test.c.s
+
+CMakeFiles/main.dir/src/test/vector-test.c.o.requires:
+
+.PHONY : CMakeFiles/main.dir/src/test/vector-test.c.o.requires
+
+CMakeFiles/main.dir/src/test/vector-test.c.o.provides: CMakeFiles/main.dir/src/test/vector-test.c.o.requires
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/test/vector-test.c.o.provides.build
+.PHONY : CMakeFiles/main.dir/src/test/vector-test.c.o.provides
+
+CMakeFiles/main.dir/src/test/vector-test.c.o.provides.build: CMakeFiles/main.dir/src/test/vector-test.c.o
+
+
+CMakeFiles/main.dir/src/client/client.c.o: CMakeFiles/main.dir/flags.make
+CMakeFiles/main.dir/src/client/client.c.o: ../src/client/client.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/pwdmanlib/libraries/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building C object CMakeFiles/main.dir/src/client/client.c.o"
+	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/main.dir/src/client/client.c.o   -c /pwdmanlib/libraries/src/client/client.c
+
+CMakeFiles/main.dir/src/client/client.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/main.dir/src/client/client.c.i"
+	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /pwdmanlib/libraries/src/client/client.c > CMakeFiles/main.dir/src/client/client.c.i
+
+CMakeFiles/main.dir/src/client/client.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/main.dir/src/client/client.c.s"
+	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /pwdmanlib/libraries/src/client/client.c -o CMakeFiles/main.dir/src/client/client.c.s
+
+CMakeFiles/main.dir/src/client/client.c.o.requires:
+
+.PHONY : CMakeFiles/main.dir/src/client/client.c.o.requires
+
+CMakeFiles/main.dir/src/client/client.c.o.provides: CMakeFiles/main.dir/src/client/client.c.o.requires
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/client/client.c.o.provides.build
+.PHONY : CMakeFiles/main.dir/src/client/client.c.o.provides
+
+CMakeFiles/main.dir/src/client/client.c.o.provides.build: CMakeFiles/main.dir/src/client/client.c.o
+
+
+CMakeFiles/main.dir/src/server_socket.c.o: CMakeFiles/main.dir/flags.make
+CMakeFiles/main.dir/src/server_socket.c.o: ../src/server_socket.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/pwdmanlib/libraries/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building C object CMakeFiles/main.dir/src/server_socket.c.o"
+	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/main.dir/src/server_socket.c.o   -c /pwdmanlib/libraries/src/server_socket.c
+
+CMakeFiles/main.dir/src/server_socket.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/main.dir/src/server_socket.c.i"
+	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /pwdmanlib/libraries/src/server_socket.c > CMakeFiles/main.dir/src/server_socket.c.i
+
+CMakeFiles/main.dir/src/server_socket.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/main.dir/src/server_socket.c.s"
+	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /pwdmanlib/libraries/src/server_socket.c -o CMakeFiles/main.dir/src/server_socket.c.s
+
+CMakeFiles/main.dir/src/server_socket.c.o.requires:
+
+.PHONY : CMakeFiles/main.dir/src/server_socket.c.o.requires
+
+CMakeFiles/main.dir/src/server_socket.c.o.provides: CMakeFiles/main.dir/src/server_socket.c.o.requires
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/server_socket.c.o.provides.build
+.PHONY : CMakeFiles/main.dir/src/server_socket.c.o.provides
+
+CMakeFiles/main.dir/src/server_socket.c.o.provides.build: CMakeFiles/main.dir/src/server_socket.c.o
+
+
+CMakeFiles/main.dir/src/test/oop_test.c.o: CMakeFiles/main.dir/flags.make
+CMakeFiles/main.dir/src/test/oop_test.c.o: ../src/test/oop_test.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/pwdmanlib/libraries/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building C object CMakeFiles/main.dir/src/test/oop_test.c.o"
+	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/main.dir/src/test/oop_test.c.o   -c /pwdmanlib/libraries/src/test/oop_test.c
+
+CMakeFiles/main.dir/src/test/oop_test.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/main.dir/src/test/oop_test.c.i"
+	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /pwdmanlib/libraries/src/test/oop_test.c > CMakeFiles/main.dir/src/test/oop_test.c.i
+
+CMakeFiles/main.dir/src/test/oop_test.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/main.dir/src/test/oop_test.c.s"
+	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /pwdmanlib/libraries/src/test/oop_test.c -o CMakeFiles/main.dir/src/test/oop_test.c.s
+
+CMakeFiles/main.dir/src/test/oop_test.c.o.requires:
+
+.PHONY : CMakeFiles/main.dir/src/test/oop_test.c.o.requires
+
+CMakeFiles/main.dir/src/test/oop_test.c.o.provides: CMakeFiles/main.dir/src/test/oop_test.c.o.requires
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/test/oop_test.c.o.provides.build
+.PHONY : CMakeFiles/main.dir/src/test/oop_test.c.o.provides
+
+CMakeFiles/main.dir/src/test/oop_test.c.o.provides.build: CMakeFiles/main.dir/src/test/oop_test.c.o
+
+
 # Object files for target main
 main_OBJECTS = \
 "CMakeFiles/main.dir/src/library.cpp.o" \
-"CMakeFiles/main.dir/src/server.cpp.o" \
-"CMakeFiles/main.dir/src/frontend.cpp.o" \
+"CMakeFiles/main.dir/src/server.c.o" \
+"CMakeFiles/main.dir/src/gui/frontend.cpp.o" \
 "CMakeFiles/main.dir/src/auth.cpp.o" \
-"CMakeFiles/main.dir/src/crypto.cpp.o"
+"CMakeFiles/main.dir/src/crypto.cpp.o" \
+"CMakeFiles/main.dir/src/util/os_info.c.o" \
+"CMakeFiles/main.dir/src/util/vector.c.o" \
+"CMakeFiles/main.dir/src/util/oop.c.o" \
+"CMakeFiles/main.dir/src/test/vector-test.c.o" \
+"CMakeFiles/main.dir/src/client/client.c.o" \
+"CMakeFiles/main.dir/src/server_socket.c.o" \
+"CMakeFiles/main.dir/src/test/oop_test.c.o"
 
 # External object files for target main
 main_EXTERNAL_OBJECTS =
 
 ../bin/main: CMakeFiles/main.dir/src/library.cpp.o
-../bin/main: CMakeFiles/main.dir/src/server.cpp.o
-../bin/main: CMakeFiles/main.dir/src/frontend.cpp.o
+../bin/main: CMakeFiles/main.dir/src/server.c.o
+../bin/main: CMakeFiles/main.dir/src/gui/frontend.cpp.o
 ../bin/main: CMakeFiles/main.dir/src/auth.cpp.o
 ../bin/main: CMakeFiles/main.dir/src/crypto.cpp.o
+../bin/main: CMakeFiles/main.dir/src/util/os_info.c.o
+../bin/main: CMakeFiles/main.dir/src/util/vector.c.o
+../bin/main: CMakeFiles/main.dir/src/util/oop.c.o
+../bin/main: CMakeFiles/main.dir/src/test/vector-test.c.o
+../bin/main: CMakeFiles/main.dir/src/client/client.c.o
+../bin/main: CMakeFiles/main.dir/src/server_socket.c.o
+../bin/main: CMakeFiles/main.dir/src/test/oop_test.c.o
 ../bin/main: CMakeFiles/main.dir/build.make
 ../bin/main: CMakeFiles/main.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/pwdmanlib/libraries/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking CXX executable ../bin/main"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/pwdmanlib/libraries/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Linking CXX executable ../bin/main"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/main.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -204,10 +386,17 @@ CMakeFiles/main.dir/build: ../bin/main
 .PHONY : CMakeFiles/main.dir/build
 
 CMakeFiles/main.dir/requires: CMakeFiles/main.dir/src/library.cpp.o.requires
-CMakeFiles/main.dir/requires: CMakeFiles/main.dir/src/server.cpp.o.requires
-CMakeFiles/main.dir/requires: CMakeFiles/main.dir/src/frontend.cpp.o.requires
+CMakeFiles/main.dir/requires: CMakeFiles/main.dir/src/server.c.o.requires
+CMakeFiles/main.dir/requires: CMakeFiles/main.dir/src/gui/frontend.cpp.o.requires
 CMakeFiles/main.dir/requires: CMakeFiles/main.dir/src/auth.cpp.o.requires
 CMakeFiles/main.dir/requires: CMakeFiles/main.dir/src/crypto.cpp.o.requires
+CMakeFiles/main.dir/requires: CMakeFiles/main.dir/src/util/os_info.c.o.requires
+CMakeFiles/main.dir/requires: CMakeFiles/main.dir/src/util/vector.c.o.requires
+CMakeFiles/main.dir/requires: CMakeFiles/main.dir/src/util/oop.c.o.requires
+CMakeFiles/main.dir/requires: CMakeFiles/main.dir/src/test/vector-test.c.o.requires
+CMakeFiles/main.dir/requires: CMakeFiles/main.dir/src/client/client.c.o.requires
+CMakeFiles/main.dir/requires: CMakeFiles/main.dir/src/server_socket.c.o.requires
+CMakeFiles/main.dir/requires: CMakeFiles/main.dir/src/test/oop_test.c.o.requires
 
 .PHONY : CMakeFiles/main.dir/requires
 

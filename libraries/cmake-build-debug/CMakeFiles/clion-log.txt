@@ -1,9 +1,6 @@
 /jetbrains/clion/bin/cmake/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /pwdmanlib/libraries
 -- Boost version: 1.60.0
--- Could NOT find PostgreSQL (missing:  PostgreSQL_TYPE_INCLUDE_DIR) (found version "9.6.2")
-CMake Error at CMakeLists.txt:79 (message):
-  Could not find PostgreSQL: /usr/include/postgresql
-
-
--- Configuring incomplete, errors occurred!
-See also "/pwdmanlib/libraries/cmake-build-debug/CMakeFiles/CMakeOutput.log".
+-- Configuring done
+WARNING: Target "main" requests linking to directory "/pwdmanlib/libraries/deps/cryptopp565".  Targets may link only to libraries.  CMake is dropping the item.
+-- Generating done
+-- Build files have been written to: /pwdmanlib/libraries/cmake-build-debug

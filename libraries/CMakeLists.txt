@@ -1,6 +1,14 @@
 PROJECT(pwdmanlib)
 cmake_minimum_required(VERSION 3.0)
 
+# Version info
+set(PWDMANLIB_MAJOR_VERSION 0)
+set(PWDMANLIB_MINOR_VERSION 0)
+set(PWDMANLIB_PATCH_VERSION 0)
+set(PWDMANLIB_RELEASE_STAGE A)
+set(PWDMANLIB_VERSION ${PWDMANLIB_MAJOR_VERSION}.${PWDMANLIB_MINOR_VERSION}.${PWDMANLIB_PATCH_VERSION}PWDMANLIB_RELEASE_STAGE)
+
+
 # Set project layout variables
 SET(PROJECT_ROOT "/pwdmanlib/libraries")
 SET(BII_BLOCKS_DIR blocks)
@@ -42,18 +50,14 @@ add_custom_target(biitest)
 set(	SOURCE_FILES
 		src/library.cpp
 		src/server.c
-		src/server.c
-		src/frontend.cpp
+		src/gui/frontend.cpp
 		src/auth.cpp
-		src/crypto.cpp
-)
-set(BOOST_ROOT_DIR "${PROJECT_ROOT}/deps/boost_1_60_0")
-set(KORE_ROOT_DIR "${PROJECT_ROOT}/deps/kore")
-set(POCO_ROOT_DIR "${PROJECT_ROOT}/deps/poco")
+		src/crypto.cpp src/util/os_info.c src/util/vector.h src/util/vector.c src/server.h src/util/oop.h src/util/oop.c src/test/vector-test.c src/client/client.c src/client/client.h src/server_socket.c src/test/oop_test.c)
 
 ##### Define settings for dependencies #####
 
 # Boost #
+set(BOOST_ROOT_DIR "${PROJECT_ROOT}/deps/boost_1_60_0")
 set(Boost_USE_STATIC_LIBS        ON)
 set(Boost_USE_MULTITHREADED      ON)
 set(Boost_USE_STATIC_RUNTIME    OFF)
@@ -68,13 +72,14 @@ else()
 	link_directories(${Boost_LIBRARY_DIRS})
 endif()
 
-## PostrgreSQL #
-set(PostgreSQL_ROOT )
+# PostrgreSQL #
+set(PostgreSQL_ROOT "/usr/include/postgresql")
 set(PostgreSQL_INCLUDE_DIR "/usr/include/postgresql")
 set(PostgreSQL_LIBRARY_DIR "/usr/lib/postgresql")
 set(PostgreSQL_ADDITIONAL_VERSIONS "9.6.2" "9.5.6")
+set(PostgreSQL_TYPE_INCLUDE_DIR "/usr/include/postgresql/9.6/server/catalog")
 
-find_package(PostgreSQL)
+find_package(PostgreSQL REQUIRED)
 if (NOT PostgreSQL_FOUND)
 	message(FATAL_ERROR "Could not find PostgreSQL: ${PostgreSQL_INCLUDE_DIR}")
 else()
@@ -87,6 +92,29 @@ set(CryptoPP_ROOT_DIR "${PROJECT_ROOT}/deps/cryptopp565")
 
 if(NOT EXISTS ${CryptoPP_ROOT_DIR})
 	message(FATAL_ERROR "Could not find Crypto++: ${CryptoPP_ROOT_DIR}")
+else()
+	include_directories(PRIVATE ${CryptoPP_ROOT_DIR})
+endif()
+
+# Kore #
+#set(KORE_ROOT_DIR "${PROJECT_ROOT}/deps/kore")
+#
+#if(NOT EXISTS ${Kore_ROOT_DIR})
+#	message(FATAL_ERROR "Could not find Kore: ${KORE_ROOT_DIR}")
+#else()
+#	include_directories(${Kore_INCLUDE_DIRS})
+#	link_directories(${Kore_INCLUDE_DIRS})
+#endif()
+
+# Poco #
+set(POCO_ROOT_DIR "${PROJECT_ROOT}/deps/poco-1.7.8")
+#find_package(poco REQUIRED)
+
+if(NOT EXISTS ${POCO_ROOT_DIR})
+	message(FATAL_ERROR "Could not find Poco: ${POCO_ROOT_DIR}")
+else()
+	include_directories(${POCO_INCLUDE_DIRS})
+	link_directories(${POCO_LIBRARY_DIRS})
 endif()
 
 # Add libraries
@@ -96,9 +124,10 @@ endif()
 
 # Define build targets and link libraries
 add_executable(main ${SOURCE_FILES})
-target_link_libraries(main ${Boost_LIBRARY_DIRS})
-target_link_libraries(main ${PostgreSQL_LIBRARIES})
-target_include_directories(main PRIVATE ${CryptoPP_ROOT_DIR})
-target_link_libraries(main ${CryptoPP_ROOT_DIR})
-
+target_link_libraries(main
+		PRIVATE ${Boost_LIBRARIES}
+		PRIVATE ${PostgreSQL_LIBRARIES}
+		PRIVATE ${CryptoPP_ROOT_DIR}
+#		PRIVATE ${Kore_ROOT_DIR}
+		PRIVATE ${POCO_LIBRARIES})
 

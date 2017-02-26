@@ -1,7 +1,0 @@
-# List of all required dependencies #
-# Note: apps with "#" in front are not python modules #
-
-#python2.7
-#biicode
-#libmemcached-dev
-#zlib1g-dev

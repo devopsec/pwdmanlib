@@ -59,6 +59,9 @@
 					<Add directory="/pwdmanlib/libraries/blocks"/>
 					<Add directory="/pwdmanlib/libraries/deps"/>
 					<Add directory="/pwdmanlib/libraries/deps/boost_1_60_0"/>
+					<Add directory="/usr/include/postgresql"/>
+					<Add directory="/usr/include/postgresql/9.6/server/catalog"/>
+					<Add directory="/pwdmanlib/libraries/PRIVATE"/>
 					<Add directory="/pwdmanlib/libraries/deps/cryptopp565"/>
 					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
 					<Add directory="/usr/local/include"/>
@@ -88,6 +91,9 @@
 					<Add directory="/pwdmanlib/libraries/blocks"/>
 					<Add directory="/pwdmanlib/libraries/deps"/>
 					<Add directory="/pwdmanlib/libraries/deps/boost_1_60_0"/>
+					<Add directory="/usr/include/postgresql"/>
+					<Add directory="/usr/include/postgresql/9.6/server/catalog"/>
+					<Add directory="/pwdmanlib/libraries/PRIVATE"/>
 					<Add directory="/pwdmanlib/libraries/deps/cryptopp565"/>
 					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
 					<Add directory="/usr/local/include"/>
@@ -119,10 +125,16 @@
 		<Unit filename="/pwdmanlib/libraries/src/auth.cpp">
 			<Option target="main"/>
 		</Unit>
+		<Unit filename="/pwdmanlib/libraries/src/client/client.c">
+			<Option target="main"/>
+		</Unit>
+		<Unit filename="/pwdmanlib/libraries/src/client/client.h">
+			<Option target="main"/>
+		</Unit>
 		<Unit filename="/pwdmanlib/libraries/src/crypto.cpp">
 			<Option target="main"/>
 		</Unit>
-		<Unit filename="/pwdmanlib/libraries/src/frontend.cpp">
+		<Unit filename="/pwdmanlib/libraries/src/gui/frontend.cpp">
 			<Option target="main"/>
 		</Unit>
 		<Unit filename="/pwdmanlib/libraries/src/library.cpp">
@@ -131,7 +143,34 @@
 		<Unit filename="/pwdmanlib/libraries/src/library.h">
 			<Option target="main"/>
 		</Unit>
-		<Unit filename="/pwdmanlib/libraries/src/server.cpp">
+		<Unit filename="/pwdmanlib/libraries/src/server.c">
+			<Option target="main"/>
+		</Unit>
+		<Unit filename="/pwdmanlib/libraries/src/server.h">
+			<Option target="main"/>
+		</Unit>
+		<Unit filename="/pwdmanlib/libraries/src/server_socket.c">
+			<Option target="main"/>
+		</Unit>
+		<Unit filename="/pwdmanlib/libraries/src/test/oop_test.c">
+			<Option target="main"/>
+		</Unit>
+		<Unit filename="/pwdmanlib/libraries/src/test/vector-test.c">
+			<Option target="main"/>
+		</Unit>
+		<Unit filename="/pwdmanlib/libraries/src/util/oop.c">
+			<Option target="main"/>
+		</Unit>
+		<Unit filename="/pwdmanlib/libraries/src/util/oop.h">
+			<Option target="main"/>
+		</Unit>
+		<Unit filename="/pwdmanlib/libraries/src/util/os_info.c">
+			<Option target="main"/>
+		</Unit>
+		<Unit filename="/pwdmanlib/libraries/src/util/vector.c">
+			<Option target="main"/>
+		</Unit>
+		<Unit filename="/pwdmanlib/libraries/src/util/vector.h">
 			<Option target="main"/>
 		</Unit>
 		<Unit filename="/pwdmanlib/libraries/CMakeLists.txt">

@@ -202,6 +202,9 @@ CMAKE_STRIP:FILEPATH=/usr/bin/strip
 // Studio IDE projects all commands are done without /nologo.
 CMAKE_VERBOSE_MAKEFILE:BOOL=FALSE
 
+//The directory containing a CMake configuration file for Kore.
+Kore_DIR:PATH=Kore_DIR-NOTFOUND
+
 //The Set the PostgreSQL_INCLUDE_DIR cmake cache entry to the top-level
 // directory containing the PostgreSQL include directories. E.g
 // /usr/local/include/PostgreSQL/8.4 or C:/Program Files/PostgreSQL/8.4/include
@@ -225,11 +228,17 @@ ProcessorCount_cmd_sysctl:FILEPATH=/sbin/sysctl
 //The directory containing a CMake configuration file for boost.
 boost_DIR:PATH=boost_DIR-NOTFOUND
 
+//The directory containing a CMake configuration file for kore.
+kore_DIR:PATH=kore_DIR-NOTFOUND
+
 //Value Computed by CMake
 libraries_BINARY_DIR:STATIC=/pwdmanlib/libraries/cmake-build-debug
 
 //Value Computed by CMake
 libraries_SOURCE_DIR:STATIC=/pwdmanlib/libraries
+
+//The directory containing a CMake configuration file for poco.
+poco_DIR:PATH=poco_DIR-NOTFOUND
 
 //Value Computed by CMake
 pwdmanlib_BINARY_DIR:STATIC=/pwdmanlib/libraries/cmake-build-debug
@@ -395,6 +404,8 @@ CMAKE_STRIP-ADVANCED:INTERNAL=1
 CMAKE_UNAME:INTERNAL=/bin/uname
 //ADVANCED property for variable: CMAKE_VERBOSE_MAKEFILE
 CMAKE_VERBOSE_MAKEFILE-ADVANCED:INTERNAL=1
+//Details about finding PostgreSQL
+FIND_PACKAGE_MESSAGE_DETAILS_PostgreSQL:INTERNAL=[/usr/lib/x86_64-linux-gnu/libpq.so][/usr/include/postgresql][/usr/include/postgresql/9.6/server/catalog][v9.6.2()]
 //ADVANCED property for variable: PostgreSQL_INCLUDE_DIR
 PostgreSQL_INCLUDE_DIR-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: PostgreSQL_LIBRARY

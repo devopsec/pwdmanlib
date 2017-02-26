@@ -112,5 +112,8 @@
 <h3>Updates:</h3>
 <p>
     Project is kicking off! Expect more updates to documentation, adding dependencies to tree, some architecture definitions and preliminary structures / wrappers.<br>
-    Also, note that the project will be licensed under Apache License V2 now instead of GPL  to be more openly consumable and flexible for anyone to use the libraries! 
+    Also, note that the project will be licensed under Apache License V2 now instead of GPL  to be more openly consumable and flexible for anyone to use the libraries!<br>
+    Many changes coming upstream, the underlying architecture has been laid out, although much of it needs wrappers still.<br>
+    The server is close to complete and database is well underway as well. Many neat oop functions nested in there too.<br>
+    Biicode as a dependency is being deprecated as well and we are going with bash scripts for dependencies and make or cmake for build.
 </p>

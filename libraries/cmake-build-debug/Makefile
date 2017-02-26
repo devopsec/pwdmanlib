@@ -174,6 +174,33 @@ src/auth.cpp.s:
 	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/auth.cpp.s
 .PHONY : src/auth.cpp.s
 
+src/client/client.o: src/client/client.c.o
+
+.PHONY : src/client/client.o
+
+# target to build an object file
+src/client/client.c.o:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/client/client.c.o
+.PHONY : src/client/client.c.o
+
+src/client/client.i: src/client/client.c.i
+
+.PHONY : src/client/client.i
+
+# target to preprocess a source file
+src/client/client.c.i:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/client/client.c.i
+.PHONY : src/client/client.c.i
+
+src/client/client.s: src/client/client.c.s
+
+.PHONY : src/client/client.s
+
+# target to generate assembly for a file
+src/client/client.c.s:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/client/client.c.s
+.PHONY : src/client/client.c.s
+
 src/crypto.o: src/crypto.cpp.o
 
 .PHONY : src/crypto.o
@@ -201,32 +228,32 @@ src/crypto.cpp.s:
 	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/crypto.cpp.s
 .PHONY : src/crypto.cpp.s
 
-src/frontend.o: src/frontend.cpp.o
+src/gui/frontend.o: src/gui/frontend.cpp.o
 
-.PHONY : src/frontend.o
+.PHONY : src/gui/frontend.o
 
 # target to build an object file
-src/frontend.cpp.o:
-	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/frontend.cpp.o
-.PHONY : src/frontend.cpp.o
+src/gui/frontend.cpp.o:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/gui/frontend.cpp.o
+.PHONY : src/gui/frontend.cpp.o
 
-src/frontend.i: src/frontend.cpp.i
+src/gui/frontend.i: src/gui/frontend.cpp.i
 
-.PHONY : src/frontend.i
+.PHONY : src/gui/frontend.i
 
 # target to preprocess a source file
-src/frontend.cpp.i:
-	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/frontend.cpp.i
-.PHONY : src/frontend.cpp.i
+src/gui/frontend.cpp.i:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/gui/frontend.cpp.i
+.PHONY : src/gui/frontend.cpp.i
 
-src/frontend.s: src/frontend.cpp.s
+src/gui/frontend.s: src/gui/frontend.cpp.s
 
-.PHONY : src/frontend.s
+.PHONY : src/gui/frontend.s
 
 # target to generate assembly for a file
-src/frontend.cpp.s:
-	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/frontend.cpp.s
-.PHONY : src/frontend.cpp.s
+src/gui/frontend.cpp.s:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/gui/frontend.cpp.s
+.PHONY : src/gui/frontend.cpp.s
 
 src/library.o: src/library.cpp.o
 
@@ -255,32 +282,194 @@ src/library.cpp.s:
 	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/library.cpp.s
 .PHONY : src/library.cpp.s
 
-src/server.o: src/server.cpp.o
+src/server.o: src/server.c.o
 
 .PHONY : src/server.o
 
 # target to build an object file
-src/server.cpp.o:
-	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/server.cpp.o
-.PHONY : src/server.cpp.o
+src/server.c.o:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/server.c.o
+.PHONY : src/server.c.o
 
-src/server.i: src/server.cpp.i
+src/server.i: src/server.c.i
 
 .PHONY : src/server.i
 
 # target to preprocess a source file
-src/server.cpp.i:
-	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/server.cpp.i
-.PHONY : src/server.cpp.i
+src/server.c.i:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/server.c.i
+.PHONY : src/server.c.i
 
-src/server.s: src/server.cpp.s
+src/server.s: src/server.c.s
 
 .PHONY : src/server.s
 
 # target to generate assembly for a file
-src/server.cpp.s:
-	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/server.cpp.s
-.PHONY : src/server.cpp.s
+src/server.c.s:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/server.c.s
+.PHONY : src/server.c.s
+
+src/server_socket.o: src/server_socket.c.o
+
+.PHONY : src/server_socket.o
+
+# target to build an object file
+src/server_socket.c.o:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/server_socket.c.o
+.PHONY : src/server_socket.c.o
+
+src/server_socket.i: src/server_socket.c.i
+
+.PHONY : src/server_socket.i
+
+# target to preprocess a source file
+src/server_socket.c.i:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/server_socket.c.i
+.PHONY : src/server_socket.c.i
+
+src/server_socket.s: src/server_socket.c.s
+
+.PHONY : src/server_socket.s
+
+# target to generate assembly for a file
+src/server_socket.c.s:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/server_socket.c.s
+.PHONY : src/server_socket.c.s
+
+src/test/oop_test.o: src/test/oop_test.c.o
+
+.PHONY : src/test/oop_test.o
+
+# target to build an object file
+src/test/oop_test.c.o:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/test/oop_test.c.o
+.PHONY : src/test/oop_test.c.o
+
+src/test/oop_test.i: src/test/oop_test.c.i
+
+.PHONY : src/test/oop_test.i
+
+# target to preprocess a source file
+src/test/oop_test.c.i:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/test/oop_test.c.i
+.PHONY : src/test/oop_test.c.i
+
+src/test/oop_test.s: src/test/oop_test.c.s
+
+.PHONY : src/test/oop_test.s
+
+# target to generate assembly for a file
+src/test/oop_test.c.s:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/test/oop_test.c.s
+.PHONY : src/test/oop_test.c.s
+
+src/test/vector-test.o: src/test/vector-test.c.o
+
+.PHONY : src/test/vector-test.o
+
+# target to build an object file
+src/test/vector-test.c.o:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/test/vector-test.c.o
+.PHONY : src/test/vector-test.c.o
+
+src/test/vector-test.i: src/test/vector-test.c.i
+
+.PHONY : src/test/vector-test.i
+
+# target to preprocess a source file
+src/test/vector-test.c.i:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/test/vector-test.c.i
+.PHONY : src/test/vector-test.c.i
+
+src/test/vector-test.s: src/test/vector-test.c.s
+
+.PHONY : src/test/vector-test.s
+
+# target to generate assembly for a file
+src/test/vector-test.c.s:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/test/vector-test.c.s
+.PHONY : src/test/vector-test.c.s
+
+src/util/oop.o: src/util/oop.c.o
+
+.PHONY : src/util/oop.o
+
+# target to build an object file
+src/util/oop.c.o:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/util/oop.c.o
+.PHONY : src/util/oop.c.o
+
+src/util/oop.i: src/util/oop.c.i
+
+.PHONY : src/util/oop.i
+
+# target to preprocess a source file
+src/util/oop.c.i:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/util/oop.c.i
+.PHONY : src/util/oop.c.i
+
+src/util/oop.s: src/util/oop.c.s
+
+.PHONY : src/util/oop.s
+
+# target to generate assembly for a file
+src/util/oop.c.s:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/util/oop.c.s
+.PHONY : src/util/oop.c.s
+
+src/util/os_info.o: src/util/os_info.c.o
+
+.PHONY : src/util/os_info.o
+
+# target to build an object file
+src/util/os_info.c.o:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/util/os_info.c.o
+.PHONY : src/util/os_info.c.o
+
+src/util/os_info.i: src/util/os_info.c.i
+
+.PHONY : src/util/os_info.i
+
+# target to preprocess a source file
+src/util/os_info.c.i:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/util/os_info.c.i
+.PHONY : src/util/os_info.c.i
+
+src/util/os_info.s: src/util/os_info.c.s
+
+.PHONY : src/util/os_info.s
+
+# target to generate assembly for a file
+src/util/os_info.c.s:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/util/os_info.c.s
+.PHONY : src/util/os_info.c.s
+
+src/util/vector.o: src/util/vector.c.o
+
+.PHONY : src/util/vector.o
+
+# target to build an object file
+src/util/vector.c.o:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/util/vector.c.o
+.PHONY : src/util/vector.c.o
+
+src/util/vector.i: src/util/vector.c.i
+
+.PHONY : src/util/vector.i
+
+# target to preprocess a source file
+src/util/vector.c.i:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/util/vector.c.i
+.PHONY : src/util/vector.c.i
+
+src/util/vector.s: src/util/vector.c.s
+
+.PHONY : src/util/vector.s
+
+# target to generate assembly for a file
+src/util/vector.c.s:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/util/vector.c.s
+.PHONY : src/util/vector.c.s
 
 # Help Target
 help:
@@ -296,18 +485,39 @@ help:
 	@echo "... src/auth.o"
 	@echo "... src/auth.i"
 	@echo "... src/auth.s"
+	@echo "... src/client/client.o"
+	@echo "... src/client/client.i"
+	@echo "... src/client/client.s"
 	@echo "... src/crypto.o"
 	@echo "... src/crypto.i"
 	@echo "... src/crypto.s"
-	@echo "... src/frontend.o"
-	@echo "... src/frontend.i"
-	@echo "... src/frontend.s"
+	@echo "... src/gui/frontend.o"
+	@echo "... src/gui/frontend.i"
+	@echo "... src/gui/frontend.s"
 	@echo "... src/library.o"
 	@echo "... src/library.i"
 	@echo "... src/library.s"
 	@echo "... src/server.o"
 	@echo "... src/server.i"
 	@echo "... src/server.s"
+	@echo "... src/server_socket.o"
+	@echo "... src/server_socket.i"
+	@echo "... src/server_socket.s"
+	@echo "... src/test/oop_test.o"
+	@echo "... src/test/oop_test.i"
+	@echo "... src/test/oop_test.s"
+	@echo "... src/test/vector-test.o"
+	@echo "... src/test/vector-test.i"
+	@echo "... src/test/vector-test.s"
+	@echo "... src/util/oop.o"
+	@echo "... src/util/oop.i"
+	@echo "... src/util/oop.s"
+	@echo "... src/util/os_info.o"
+	@echo "... src/util/os_info.i"
+	@echo "... src/util/os_info.s"
+	@echo "... src/util/vector.o"
+	@echo "... src/util/vector.i"
+	@echo "... src/util/vector.s"
 .PHONY : help
 
 
