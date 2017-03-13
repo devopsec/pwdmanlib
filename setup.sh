@@ -2,6 +2,7 @@
 # Author: devopsec
 # Summary: Deployment script for pwdlibman
 # Note: All install cmds must be run as root user or with sudo cmd.
+# Note: Function return ints: 0 == success, 1 == incomplete, -1 == error
 
 main() {
     PROJECT_DIR="/pwdmanlib" # change to where you want installed
@@ -34,18 +35,18 @@ main() {
         fi
         
 
-        
     elif uname -a | grep -i "mac"; then
         OS="mac"
+        OSX_VERS=$(sw_vers -productVersion | awk -F "." '{print $2}')
+    
     else 
         echo "Operating System not supported at this time.."
         exit -1
     fi
     echo "Operating System detected: ${OS}\n"
-
 }
 
-# TODO: add rewuirements for mac and windows #
+# TODO: add requirements for mac and windows #
 install_required_deps() {    
     if [ "$OS" == "mac" ]; then
         if ! whichapp 'homebrew' &> /dev/null; then
@@ -55,12 +56,25 @@ install_required_deps() {
 		    echo "installing git.."
 		    brew install git
 		    git --version
-    
+        if ! whichapp 'wget' &> /dev/null; then
+            brew install wget
+
     elif [ "$OS" == "linux" ]; then
         DEBIAN_FRONTEND=noninteractive
         apt-get update -q &&
         apt-get install -q -y build-essential make cmake libmemcached-dev \
-            zlib1g-dev python2.7 setuptools python-dev git perl dpkg
+            zlib1g-dev python2.7 setuptools python-dev git perl dpkg libncurses5-dev
+    else
+        echo "OS enivron variable not set\nEnsure your os is supported before retrying"
+        exit -1
+    fi
+    
+    if [[ ! install_libffi ]]; then
+        echo "error occurred installing libffi"
+        exit -1
+    fi
+    
+    return 0
 
     ####    biicode is going to be deprecated   ####
 #        if install_biicode; then
@@ -79,16 +93,60 @@ install_required_deps() {
 }
 
 install_boost() {
-    cd /opt
-    wget http://sourceforge.net/projects/boost/files/boost/1.60.0/boost_1_60_0.tar.bz2
-    tar --bzip2 -xf boost_1_60_0.tar.bz2
-    rm -r boost_1_60_0.tar.bz2
+    if [ "${OS}" == "linux" ]; then
+        DEBIAN_FRONTEND=noninteractive
+        apt-get install -q -y bzip2 
+    
+    elif [ "${OS}" == "mac" ]; then
+        if [[ ! is_xcode_clitools_installed ]]; then
+            echo "xcode cli tools not installed\ninstall them prior to installing boost"
+            return 1
+        fi
+    else
+        echo "OS enivron variable not set\nEnsure your os is supported before retrying"
+        exit -1
+    fi
+    
+    cd /usr/local
+    #                    this may take couple minutes to download                     #
+    wget https://sourceforge.net/projects/boost/files/boost/1.63.0/boost_1_63_0.tar.bz2
+    tar --bzip2 -xf boost_1_63_0.tar.bz2
+    rm -r boost_1_63_0.tar.bz2
+    cd boost_1_63_0
+    ./bootstrap.sh --prefix=/usr/local && ./b2 install
+
+    # add them to path #
+    echo "" >> ~/.profile &&
+    echo 'export PATH=$PATH:/usr/local/include:/usr/local/lib' >> ~/.profile
+    source ~/.profile
+    
+    return 0
 }
 
 install_mysql() {
-    libiodbc2 libiodbc2-dev
+    DEBIAN_FRONTEND=noninteractive
+    apt-get install -q -y libiodbc2 libiodbc2-dev libaio1
+    # check if mysql is installed first #
+    TEMP=$(dpkg -l "mysql-client" 2>&1 && | grep -i "no packages found")
+    TEMP2=$(dpkg -l "mysql-server" 2>&1 && | grep -i "no packages found")
+	if [[ -n "$TEMP" ]] && [[ -n "$TEMP2" ]]; then
+		echo "installing mysql.."
+        # Install MySQL Server in a Non-Interactive mode. Default root password will be "root"
+        echo "mysql-server mysql-server/root_password password root" | debconf-set-selections
+        echo "mysql-server mysql-server/root_password_again password root" | debconf-set-selections
+        apt-get install -q -y -o Dpkg::Options::="--force-confnew" \
+        -o Dpkg::Options::="--force-confdef" mysql-client mysql-server
+        
+        sed -i 's/127\.0\.0\.1/0\.0\.0\.0/g' /etc/mysql/my.cnf
+        mysql -e "USE mysql; DELETE FROM mysql.db WHERE Db='test' OR Db='test\\_%'; DROP DATABASE test; DELETE FROM user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1', '::1');"
+        mysql -uroot -p -e 'USE mysql; UPDATE `user` SET `Host`="%" WHERE `User`="root" AND `Host`="localhost"; SET `Password`=PASSWORD("root") WHERE `User` = "root"; DELETE FROM `user` WHERE `Host` != "%" AND `User`="root"; FLUSH PRIVILEGES;'
+        service mysql restart
+    else
+        echo "mysql is already installed..\n"
+        return 1
+    fi
     
-    
+    return 0
 }
 
 install_postgresql() {
@@ -115,31 +173,21 @@ install_postgresql() {
     pg_config --includedir-server # get loc of server header files
 }
 
-install_biicode() {
-    cd / 
-    mkdir biicode
-    cd biicode
-    git clone https://github.com/biicode/client.git
-    git clone https://github.com/biicode/common.git
-    git clone https://github.com/biicode/bii-server.git
-
-    pip install -r client/requirements.txt
-    pip install -r common/requirements.txt
-    pip install -r bii-server/requirements.txt
-
-    touch __init__.py
-    echo "\n# pwdmanlib environment variables #\n" >> ~/.bashrc
-    echo "export PYTHONPATH=\"${PYTHONPATH}:/biicode\"" >> ~/.bashrc
-    echo "export PATH=$:/biicode" >> ~/.bashrc
-    source ~/.bashrc
-    return 0
+install_cJSON() {
+    cd /opt
+    git clone --recursive https://github.com/DaveGamble/cJSON.git
+    cd cJSON
+    mkdir build && cd build
+    cmake .. -DENABLE_CJSON_TEST=On -DENABLE_CJSON_UTILS=On -DENABLE_SANITIZERS=On
+    make && make install
 }
 
-resolve__bii_deps() {
-    bii find
-    bii configure
+install_yajl() {
+cd /opt
+  git clone --recursive https://github.com/lloyd/yajl.git
+  cd yajl/
+  ./configure && make install
 }
-
 
 ####    Functions for installing Dependencies    ####
 install_libffi() {
@@ -156,9 +204,17 @@ install_libffi() {
         -e 's/^Cflags: -I${includedir}/Cflags:/' \
         -i libffi.pc.in &&
 
-    ./configure --prefix=/usr --disable-static &&
-    make
-    make install
+    ./configure --prefix=/usr --disable-static && make && make install
+    return 0
+}
+
+# for ssl support, OpenSSL must be installed prior to building #
+install_libevent() {
+    cd /opt
+    git clone --recursive https://github.com/libevent/libevent.git
+    cd libevent
+    ./autogen.sh
+    ./configure  --disable-malloc-replacement && make && make install
 }
 
 install_python3() {     # python 3.6 #
@@ -181,9 +237,9 @@ install_python3() {     # python 3.6 #
     tar --strip-components=1 --no-same-owner --no-same-permissions \
         -C /usr/share/doc/python-3.6.0/html \
         -xvf ../python-3.6.0-docs-html.tar.bz2
-    rm -r python-3.6.0-docs-html.tar.bz2
+    rm -r /opt/python-3.6.0-docs-html.tar.bz2
     
-    ln -svfn python-3.6.0 /usr/share/doc/python-3 &&
+    ln -svfn python-3.6.0 /usr/share/doc/python-3
     export PYTHONDOCS=/usr/share/doc/python-3/html
 }
 
@@ -194,7 +250,10 @@ install_openssl() {
     rm -r openssl-1.1.0e.tar.gz
     cd openssl-1.1.0e
     
-    ./config --prefix=/usr/local/bin --openssldir=/usr/local/bin && make && make install
+    ./config --prefix=/usr/local/bin --openssldir=/usr/local/bin shared && make && make install
+    make MANDIR=/usr/local/share/man MANSUFFIX=ssl install &&
+    install -dv -m755 /usr/local/share/doc/openssl-1.1.0e  &&
+    cp -vfr doc/*     /usr/local/share/doc/openssl-1.1.0e
 }
 
 install_libsodium() {
@@ -204,30 +263,15 @@ install_libsodium() {
     ./configure && make && make check && make install
 }
 
-# Note: you do not need to run install_openssl cmd if these packages are installed
+#TODO: installation of crypto++ from source
+
+# Note: you do not need to run install_openssl cmd if these packages install w/o error
 install_poco() {
     cd /opt
     git clone --recursive https://github.com/pocoproject/poco.git
-    
     DEBIAN_FRONTEND=noninteractive
-    apt-get install -q -y openssl libssl-dev libiodbc2 libiodbc2-dev libaio1
-    # check if mysql is installed first #
-    TEMP=$(dpkg -l "mysql-client" 2>&1 && | grep -i "no packages found")
-	if [[ -n "$TEMP" ]]; then
-		echo "installing mysql.."
-        # Install MySQL Server in a Non-Interactive mode. Default root password will be "root"
-        echo "mysql-server mysql-server/root_password password root" | debconf-set-selections
-        echo "mysql-server mysql-server/root_password_again password root" | debconf-set-selections
-        apt-get install -q -y -o Dpkg::Options::="--force-confnew" \
-        -o Dpkg::Options::="--force-confdef" mysql-client mysql-server
-        
-        sed -i 's/127\.0\.0\.1/0\.0\.0\.0/g' /etc/mysql/my.cnf
-        mysql -e "USE mysql; DELETE FROM mysql.db WHERE Db='test' OR Db='test\\_%'; DROP DATABASE test; DELETE FROM user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1', '::1');"
-        mysql -uroot -p -e 'USE mysql; UPDATE `user` SET `Host`="%" WHERE `User`="root" AND `Host`="localhost"; SET `Password`=PASSWORD("root") WHERE `User` = "root"; DELETE FROM `user` WHERE `Host` != "%" AND `User`="root"; FLUSH PRIVILEGES;'
-        service mysql restart
-    else
-        echo ""
-    fi
+    apt-get install -q -y openssl libssl-dev
+    cd poco
     
     #TODO: installation of poco from source
 }
@@ -265,7 +309,130 @@ install_ca_certs() {
 #        > MyRootCA-trusted.pem
 }
 
+install_xcode_clitools() {
+    if [ "$OSX_VERS" -ge 9 ]; then # on 10.9+, we can leverage SUS to get the latest CLI tools
+        # create the placeholder file that's checked by CLI updates in Apple's SUS catalog
+        touch /tmp/.com.apple.dt.CommandLineTools.installondemand.in-progress
+        # find the CLI Tools update
+        PROD=$(softwareupdate -l | grep "\*.*Command Line" | head -n 1 |
+            awk -F"*" '{print $2}' | sed -e 's/^ *//' | tr -d '\n')
+        softwareupdate -i "$PROD" -v # install it
+        return 0
+
+    else # on 10.7/10.8, we instead download from public download URLs
+        [ "$OSX_VERS" -eq 7 ] && DMGURL=http://devimages.apple.com.edgekey.net/downloads/xcode/command_line_tools_for_xcode_os_x_lion_april_2013.dmg
+        [ "$OSX_VERS" -eq 8 ] && DMGURL=http://devimages.apple.com.edgekey.net/downloads/xcode/command_line_tools_for_osx_mountain_lion_april_2014.dmg
+
+        TOOLS=clitools.dmg
+        curl "$DMGURL" -o "$TOOLS"
+        TMPMOUNT=`/usr/bin/mktemp -d /tmp/clitools.XXXX`
+        hdiutil attach "$TOOLS" -mountpoint "$TMPMOUNT"
+        installer -pkg "$(find $TMPMOUNT -name '*.mpkg')" -target /
+        hdiutil detach "$TMPMOUNT"
+        rm -rf "$TMPMOUNT"
+        rm "$TOOLS"
+        return 0
+    fi
+    
+    echo "xcode cli tools install failed"
+    return 1
+}
+
+is_xcode_clitools_installed() {
+    if  pkgutil --pkg-info com.apple.pkg.CLTools_Executables >/dev/null 2>&1; then
+        printf '%s\n' "Checking for xcode cli tools"
+        count=0
+        pkgutil --files com.apple.pkg.CLTools_Executables |
+        while IFS= read file; do
+            test -e  "/${file}"   &&
+            printf '%s\n' "/${file}…OK" || { printf '%s\n' "/${file}…MISSING"; ((count++)); }
+        done
+        
+        if (( count > 0 )); then
+            printf '%s\n' "Command Line Tools are not installed properly"
+                # Provide instructions to remove and the CommandLineTools directory
+                # and the package receipt then install instructions
+            return 1
+        else
+            printf '%s\n' "Command Line Tools are installed"
+            return 0
+        fi
+    else   
+        printf '%s\n' "Command Line Tools are not installed"
+           # Provide instructions to install the Command Line Tools
+        return 1
+    fi
+}
+
+accept_mac_eula() {
+    /usr/bin/expect <<- EOF
+        spawn sudo xcodebuild -license              
+        expect {
+            "*License.rtf" {
+                send "\r";
+            }
+            timeout {
+                send_user "\nExpect failed first expect\n";
+                exit 1;
+            }
+        }
+        expect {
+            "*By typing 'agree' you are agreeing" {
+                send "agree\r"; 
+                send_error "\nUser agreed to EULA\n";
+             }
+             "*Press 'space' for more, or 'q' to quit*" {
+                 send "q";
+                 exp_continue;
+             }
+             timeout {
+                 send_error "\nExpect failed second expect\n";
+                 exit 1;
+             }
+        }
+    expect eof
+
+    foreach {pid spawnid os_error_flag value} [wait] break
+
+    if {$os_error_flag == 0} {
+        puts "exit status: $value"
+        exit $value
+    } 
+    else {
+        puts "errno: $value"
+        exit $value
+    }
+EOF
+return $?
+}
+
 ####    Function for config biicode with Jetbrains Clion    ####
+####                     **DEPRECATED**                     ####
+install_biicode() {
+    cd / 
+    mkdir biicode
+    cd biicode
+    git clone https://github.com/biicode/client.git
+    git clone https://github.com/biicode/common.git
+    git clone https://github.com/biicode/bii-server.git
+
+    pip install -r client/requirements.txt
+    pip install -r common/requirements.txt
+    pip install -r bii-server/requirements.txt
+
+    touch __init__.py
+    echo "\n# pwdmanlib environment variables #\n" >> ~/.bashrc
+    echo "export PYTHONPATH=\"${PYTHONPATH}:/biicode\"" >> ~/.bashrc
+    echo "export PATH=$:/biicode" >> ~/.bashrc
+    source ~/.bashrc
+    return 0
+}
+
+resolve__bii_deps() {
+    bii find
+    bii configure
+}
+
 configure_biicode() {
     bii setup:cpp    
     cd / # change to <path to dir containing project>

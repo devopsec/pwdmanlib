@@ -38,7 +38,7 @@
     <ul>
         <li>standard key-streching hash-algorithms:  PBKDF2, bcrypt, scrypt, Argon2, PBKDF2
     </ul>
-    <li>Suppport for captcha and account lockout handling.
+    <li>Support for captcha and account lockout handling.
     <li>Support for time-limited token-based automated password recovering, through email.
 </ol>
 
@@ -83,13 +83,13 @@
     Dates and release details will be determined by the community of committer's to the project.<br>
 </p>
 
----
+<hr>
 <ul>
     <p><em>Week1</em>:<br>Finish documentation for project including a contributing.md page and define initial project structure / architecture.
                       Define api structure (if needed) and usage of libraries in detail.</p>
     <p><em>Week2</em>:<br>Define dependencies and framework / platforms that will be supported and how.
                       Start construction of hashing and encryption utilities (using libraries for the crypto).</p>
-    <p><em>Week3</em>:<br>Test and debug hasing / encryption utils. Define interfaces for framework communication and adapters as needed. 
+    <p><em>Week3</em>:<br>Test and debug hashing / encryption utils. Define interfaces for framework communication and adapters as needed. 
                       Define network architecture and start construction of interfaces.</p>
     <p><em>Week4</em>:<br>Construction of network interfaces continues and plugins to initially supported frameworks. 
                       Define authentication methods for initial release and start construction of auth libraries.</p>
@@ -98,16 +98,20 @@
     <p><em>Week6</em>:<br>Finish / close out any outstanding issues and ensure all major bugs are fixed. Test, debug, and confirm all functionalities
                       needed for initial release / requirements are met. Code cleanup and documentation additions as needed. Minor bug fixes if time permits.</p>
 </ul>
+<hr>
 
----
 <h4>Contributing:</h4>
 <p>Guidelines for contributing to the project can be found within this repo, in CONTRIBUTING.md</p>
 
 <h4>Contact:</h4>
 <p>To contact the project director for more information or to provide feedback, please see the following links:</p>
 
-&nbsp;&nbsp;    Website          &nbsp; &nbsp;     @    &nbsp; &nbsp;      https://devopsec.net<br>
-&nbsp;&nbsp;    Github    &nbsp; &nbsp; &nbsp;     @    &nbsp; &nbsp;      https://github.com/devopsec
+<p style="text-indent: 20px;">Website:
+    <a href="https://devopsec.net" style="margin-left: 80px;" target="_blank">dev<span style="display: none;">deob</span>ops<span style="display: none;">fusc</span>ec.n<span style="display: none;">ation</span>et</a>
+</p>
+<p style="text-indent: 20px;">Github:
+    <a href="https://github.com/devopsec" style="margin-left: 90px;" target="_blank">gith<span style="display: none;">deob</span>ub.co<span style="display: none;">fusc</span>m/dev<span style="display: none;">ation</span>opsec</a>
+</p>
 
 <h3>Updates:</h3>
 <p>
