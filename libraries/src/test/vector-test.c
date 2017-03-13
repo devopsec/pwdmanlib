@@ -24,27 +24,26 @@
 #include <stdio.h>
 #include "util/vector.h"
 
-int main() {
-    /*      dynamically-sizing vector      */
-    Vector vector; /* declare a new vector */
-    vector_init(&vector); /* initialize the new vector */
+int main() {  /*    dynamically-sizing vector         */
+    int i;
+    Vector vector;                  /* declare a new vector      */
+    int_vector_init(&vector, 1000); /* initialize the new vector */
 
     /* fill it up with 150 arbitrary values
     this should expand capacity up to 200 */
-    int i;
     for (i = 200; i > -50; i--) {
-        vector_append(&vector, i);
+        int_vector_append(&vector, i);
     }
 
     /* set a value at an arbitrary index
     this will expand and zero-fill the vector to fit */
-    vector_set(&vector, 4452, 21312984);
+    int_vector_set(&vector, 4452, 21312984);
 
     /* print out an arbitrary value in the vector */
-    printf("Heres the value at 27: %d\n", vector_get(&vector, 27));
+    printf("Heres the value at 27: %d\n", int_vector_get(&vector, 27));
 
     /* free its underlying data array */
-    vector_free(&vector);
+    int_vector_free(&vector);
 
     /*    dynamically incrementing vector    */
 }
