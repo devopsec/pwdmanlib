@@ -21,44 +21,42 @@
 #define PWDMANLIB_VECTOR_H
 
 /********************************************************************************
- *                   A dynamically sizing vector array                          *
+ *               A dynamically sizing integer vector array                      *
  ********************************************************************************/
 
-/* override the constant locally to change */
-static int const VECTOR_INITIAL_CAPACITY = 1000;
-
 typedef struct {
-    int size;      // slots used so far
-    int capacity;  // total available slots
-    int *data;     // integer array
+    size_t size;      // slots used so far
+    size_t capacity;  // total available slots
+    int *data;        // integer array
 } Vector;
 
-void vector_init(Vector *vector);
+void int_vector_init(Vector *vector,  size_t vector_initial_capacity);
 
-void vector_append(Vector *vector, int value);
+void int_vector_append(Vector *vector, int value);
 
-int vector_get(Vector *vector, int index);
+int  int_vector_get(Vector *vector, int index);
 
-void vector_set(Vector *vector, int index, int value);
+void int_vector_set(Vector *vector, int index, int value);
 
-void vector_double_capacity_if_full(Vector *vector);
+void int_vector_resize(Vector *vector);
 
-void vector_free(Vector *vector);
+void int_vector_free(Vector *vector);
 
 /********************************************************************************
  *                A dynamically incrementing vector array                       *
  ********************************************************************************/
 
 /* override the constant locally to change */
-static int const VECTOR_CAPACITY = 1000;
+static size_t const VECTOR_CAPACITY = 1000;
 
 typedef struct {
-    int size;      // slots used so far
-    int capacity;  // total available slots
+
+    size_t size;      // slots used so far
+    size_t capacity;  // total available slots
     int *data;     // integer array
 } IncrementVector;
 
-void increment_vector_init(IncrementVector *vector);
+void increment_vector_init(IncrementVector *vector, size_t vector_initial_capacity);
 
 void increment_vector_append(IncrementVector *vector, int value);
 

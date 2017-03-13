@@ -22,45 +22,46 @@
 #include "vector.h"
 
 /********************************************************************************
- *                   A dynamically sizing vector array                          *
+ *               A dynamically sizing integer vector array                      *
  ********************************************************************************/
 
-void vector_init(Vector *vector) {
+/* define initial capacity during initialization */
+void int_vector_init(Vector *vector, size_t vector_initial_capacity) {
     // initialize size and capacity
     vector->size = 0;
-    vector->capacity = VECTOR_INITIAL_CAPACITY;
+    vector->capacity = vector_initial_capacity;
 
     // allocate memory for vector->data
     vector->data = malloc(sizeof(int) * vector->capacity);
 }
 
-void vector_append(Vector *vector, int value) {
+void int_vector_append(Vector *vector, int value) {
     // make sure there's room to expand into
-    vector_double_capacity_if_full(vector);
+    int_vector_resize(vector);
 
     // append the value and increment vector->size
     vector->data[vector->size++] = value;
 }
 
-int vector_get(Vector *vector, int index) {
+int int_vector_get(Vector *vector, int index) {
     if (index >= vector->size || index < 0) {
-        printf("Index %d out of bounds for vector of size %d\n", index, vector->size);
+        printf("Index %d out of bounds for vector of size %d\n", index, (int) vector->size);
         exit(1);
     }
     return vector->data[index];
 }
 
-void vector_set(Vector *vector, int index, int value) {
+void int_vector_set(Vector *vector, int index, int value) {
     // zero fill the vector up to the desired index
     while (index >= vector->size) {
-        vector_append(vector, 0);
+        int_vector_append(vector, 0);
     }
 
     // set the value at the desired index
     vector->data[index] = value;
 }
 
-void vector_double_capacity_if_full(Vector *vector) {
+void int_vector_resize(Vector *vector) {
     if (vector->size >= vector->capacity) {
         // double vector->capacity and resize the allocated memory accordingly
         vector->capacity *= 2;
@@ -68,7 +69,7 @@ void vector_double_capacity_if_full(Vector *vector) {
     }
 }
 
-void vector_free(Vector *vector) {
+void int_vector_free(Vector *vector) {
     free(vector->data);
 }
 
@@ -76,10 +77,10 @@ void vector_free(Vector *vector) {
  *                A dynamically incrementing vector array                       *
  ********************************************************************************/
 // TODO: need to figure this out and implement in server.c
-void increment_vector_init(IncrementVector *vector) {
+void increment_vector_init(IncrementVector *vector, size_t vector_initial_capacity) {
     // initialize size and capacity
     vector->size = 0;
-    vector->capacity = VECTOR_INITIAL_CAPACITY;
+    vector->capacity = vector_initial_capacity;
 
     // allocate memory for vector->data
     vector->data = malloc(sizeof(int) * vector->capacity);

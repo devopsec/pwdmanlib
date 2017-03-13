@@ -22,16 +22,25 @@
 
 /******************               HASH MAP               ************************/
 
-struct hash_map {
-    unsigned            size, count;
+typedef struct {
+    unsigned long           size, count;
     hash_map_t              *entries;
-    void                      *data;
-};
+    void                    *data;
+} hash_map;
+//typedef struct hash_map *hash_map_t;
+// key-value pair checking
+typedef int (*hash_map_validator_t)(const void *key1, const void *key2, void *data);
 
+/* constructor */
+hash_map_t create_map (hash_map_validator_t compare_keys, void *data) {
 
+}
+// destructor
+void destroy_map (hash_map_t map);
+// setter
+void set_map (hash_map_t map, const void *key, const void *value);
+// getter
+void *get_map (hash_map_t map, void *key);
+// de-referencing
+void *remove_map (hash_map_t map, void *key);
 
-/*******************              Modules                ************************/
-
-struct Module_struct {    /* module structure definition */
-    int element;
-};

@@ -17,26 +17,45 @@
  *                                                                              *
  ********************************************************************************/
 
-#ifdef _WIN64
-//define something for Windows (64-bit)
-#elif _WIN32
-//define something for Windows (32-bit)
-#elif __APPLE__
-#include "TargetConditionals.h"
-    #if TARGET_OS_IPHONE && TARGET_IPHONE_SIMULATOR
-        // define something for simulator
-    #elif TARGET_OS_IPHONE
-        // define something for iphone
-    #else
-        #define TARGET_OS_OSX 1
-        // define something for OSX
-    #endif
-#elif __ANDROID__
-//some android specific stuff
-#elif __linux
-// linux
-#elif __unix // all unices not caught above
-// Unix
-#elif __posix
-    // POSIX
-#endif
+#ifndef PWDMANLIB_ARITHMETIC_H
+#define PWDMANLIB_ARITHMETIC_H
+
+static unsigned long isPrime(unsigned long val) {
+    int i, p, exp, a;
+
+    for (i = 9; i--;)
+    {
+        a = (rand() % (val-4)) + 2;
+        p = 1;
+        exp = val-1;
+        while (exp) {
+            if (exp & 1)
+                p = (p*a)%val;
+
+            a = (a*a)%val;
+            exp >>= 1;
+        }
+
+        if (p != 1) {
+            return 0;
+        }
+    }
+
+    return 1;
+}
+
+static int findPrimeGreaterThan(int val) {
+    if (val & 1) {
+        val += 2;
+    }
+    else {
+        val++;
+    }
+
+    while (!isPrime(val)) {
+        val += 2;
+    }
+    return val;
+}
+
+#endif //PWDMANLIB_ARITHMETIC_H
