@@ -16,6 +16,9 @@ passing socket fd's: http://stackoverflow.com/questions/28003921/sending-file-de
 Dynamic Ptr to Struct Allocation: https://stackoverflow.com/questions/15397728/c-pointer-to-array-of-pointers-to-structures-allocation-deallocation-issues
 Linked Lists Explanation: https://softwareengineering.stackexchange.com/questions/252407/why-is-the-complexity-of-fetching-a-value-from-an-array-be-o1
 
+## SSL
+Adding SSL to sockets: https://stackoverflow.com/questions/7698488/turn-a-simple-socket-into-an-ssl-socket
+
 ## General
 File Paths: https://stackoverflow.com/questions/3142365/combine-directory-and-file-path-c
 Setting Bits: https://stackoverflow.com/questions/47981/how-do-you-set-clear-and-toggle-a-single-bit-in-c-c

@@ -17,33 +17,57 @@
  *                                                                              *
  ********************************************************************************/
 
-/********************************************************************************
- *                    Demonstrate usage of vector arrays                        *
- ********************************************************************************/
+#include "db/database.h"
 
-#include <stdio.h>
-#include "util/vector.h"
+int main() {
+    int status = createTable();
+    const char *user1 = "foo";
+    const char *user2 = "foofoo";
+    const char *user3 = "TheFooestF00";
+    const char *pw1 = "bar";
+    const char *pw2 = "extrabar";
+    const char *pw3 = "H1gh3stBar";
+    const char *wrongpw = "wrong";
 
-int main() {  /*    dynamically-sizing vector         */
-    int i;
-    Vector vector;                  /* declare a new vector      */
-    int_vector_init(&vector, 1000); /* initialize the new vector */
-
-    /* fill it up with 150 arbitrary values
-    this should expand capacity up to 200 */
-    for (i = 200; i > -50; i--) {
-        int_vector_append(&vector, i);
+    if (status != 0) {
+        return -1;
     }
 
-    /* set a value at an arbitrary index
-    this will expand and zero-fill the vector to fit */
-    int_vector_set(&vector, 4452, 21312984);
+    char *ver = getVersion();
+    if (strcmp(ver, "FAIL") == 0) {
+        return -1;
+    }
 
-    /* print out an arbitrary value in the vector */
-    printf("Heres the value at 27: %d\n", int_vector_get(&vector, 27));
+    char **table = getTables();
+    if (strcmp(table[0], "FAIL") == 0) {
+        return -1;
+    } if (table) { free(table); }
 
-    /* free its underlying data array */
-    int_vector_free(&vector);
+    UserRow *rows = getTableRows();
+    if (strcmp(rows->user, "FAIL") == 0) {
+        return -1;
+    } //if (rows) { free(rows); }
 
-    /*    dynamically incrementing vector    */
+    if (authenticateUser(user1, pw1) != 0) {
+        return -1;
+    }
+    if (authenticateUser(user2, pw2) != 0) {
+        return -1;
+    }
+    if (authenticateUser(user3, pw3) != 0) {
+        return -1;
+    }
+
+    if (authenticateUser(user1, wrongpw) == 0) {
+        return -1;
+    }
+
+    if (authenticateUser(user2, wrongpw) == 0) {
+        return -1;
+    }
+
+    if (authenticateUser(user3, wrongpw) == 0) {
+        return -1;
+    }
+    return 0;
 }

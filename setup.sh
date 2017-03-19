@@ -63,7 +63,7 @@ install_required_deps() {
         DEBIAN_FRONTEND=noninteractive
         apt-get update -q &&
         apt-get install -q -y build-essential make cmake libmemcached-dev \
-            zlib1g-dev python2.7 setuptools python-dev git perl dpkg libncurses5-dev
+            zlib1g-dev python2.7 python-dev git perl dpkg libncurses5-dev
     else
         echo "OS enivron variable not set\nEnsure your os is supported before retrying"
         exit -1
@@ -250,7 +250,7 @@ install_openssl() {
     rm -r openssl-1.1.0e.tar.gz
     cd openssl-1.1.0e
     
-    ./config --prefix=/usr/local/bin --openssldir=/usr/local/bin shared && make && make install
+    ./config --prefix=/usr/local/bin --openssldir=/usr/local/bin shared  && make && make install
     make MANDIR=/usr/local/share/man MANSUFFIX=ssl install &&
     install -dv -m755 /usr/local/share/doc/openssl-1.1.0e  &&
     cp -vfr doc/*     /usr/local/share/doc/openssl-1.1.0e
