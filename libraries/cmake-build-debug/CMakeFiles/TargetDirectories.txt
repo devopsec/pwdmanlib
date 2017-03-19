@@ -1,5 +1,0 @@
-/pwdmanlib/libraries/cmake-build-debug/CMakeFiles/test.dir
-/pwdmanlib/libraries/cmake-build-debug/CMakeFiles/edit_cache.dir
-/pwdmanlib/libraries/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/pwdmanlib/libraries/cmake-build-debug/CMakeFiles/main.dir
-/pwdmanlib/libraries/cmake-build-debug/CMakeFiles/biitest.dir
