@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="src"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/pwdmanlib/src/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/pwdmanlib/src/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/pwdmanlib/src/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/pwdmanlib/src/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/pwdmanlib/src/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/pwdmanlib/src/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/pwdmanlib/src/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/pwdmanlib/src/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/pwdmanlib/src/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/pwdmanlib/src/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/pwdmanlib/src/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/pwdmanlib/src/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/pwdmanlib/src/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/pwdmanlib/src/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/pwdmanlib/src/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="src">
+				<Option output="/pwdmanlib/src/cmake-build-debug/src" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/pwdmanlib/src/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/pwdmanlib/src/cmake-build-debug/Makefile&quot;  VERBOSE=1 src"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/pwdmanlib/src/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/pwdmanlib/src/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/pwdmanlib/src/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="src/fast">
+				<Option output="/pwdmanlib/src/cmake-build-debug/src" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/pwdmanlib/src/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/pwdmanlib/src/cmake-build-debug/Makefile&quot;  VERBOSE=1 src/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/pwdmanlib/src/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/pwdmanlib/src/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/pwdmanlib/src/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/pwdmanlib/src/crypto/ssl.h">
+			<Option target="src"/>
+		</Unit>
+		<Unit filename="/pwdmanlib/src/db/database.cpp">
+			<Option target="src"/>
+		</Unit>
+		<Unit filename="/pwdmanlib/src/gui/frontend.cpp">
+			<Option target="src"/>
+		</Unit>
+		<Unit filename="/pwdmanlib/src/server/fawkes_proto.h">
+			<Option target="src"/>
+		</Unit>
+		<Unit filename="/pwdmanlib/src/server/server.c">
+			<Option target="src"/>
+		</Unit>
+		<Unit filename="/pwdmanlib/src/server/server.h">
+			<Option target="src"/>
+		</Unit>
+		<Unit filename="/pwdmanlib/src/server/server_socket.c">
+			<Option target="src"/>
+		</Unit>
+		<Unit filename="/pwdmanlib/src/util/arithmetic.h">
+			<Option target="src"/>
+		</Unit>
+		<Unit filename="/pwdmanlib/src/util/constants.h">
+			<Option target="src"/>
+		</Unit>
+		<Unit filename="/pwdmanlib/src/util/oop.c">
+			<Option target="src"/>
+		</Unit>
+		<Unit filename="/pwdmanlib/src/util/oop.h">
+			<Option target="src"/>
+		</Unit>
+		<Unit filename="/pwdmanlib/src/util/osinfo.c">
+			<Option target="src"/>
+		</Unit>
+		<Unit filename="/pwdmanlib/src/util/stringops.h">
+			<Option target="src"/>
+		</Unit>
+		<Unit filename="/pwdmanlib/src/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>

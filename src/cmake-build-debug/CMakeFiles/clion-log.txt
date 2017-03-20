@@ -1,0 +1,6 @@
+/home/anon00/jetbrains/clion/bin/cmake/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /pwdmanlib/src
+-- Boost version: 1.63.0
+-- Configuring done
+WARNING: Target "server" requests linking to directory "/usr/local/include/cjson".  Targets may link only to libraries.  CMake is dropping the item.
+-- Generating done
+-- Build files have been written to: /pwdmanlib/src/cmake-build-debug

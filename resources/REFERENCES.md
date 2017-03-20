@@ -11,13 +11,24 @@ Hash Map http://www2.informatik.hu-berlin.de/~weber/slipOff/hashmap_c.html
 Hash Map https://github.com/petewarden/c_hashmap
 ssize_t cross platform: http://stackoverflow.com/users/4593267/chqrlie
 passing socket fd's: http://stackoverflow.com/questions/28003921/sending-file-descriptor-by-linux-socket
+The ultimate Guide to Sockets: https://beej.us/guide/bgnet/
+
+## SSL
+great explanation of ssl: https://security.stackexchange.com/questions/20803/how-does-ssl-tls-work/20847#20847
+
+## SSL Sockets
+Adding SSL to sockets: https://stackoverflow.com/questions/7698488/turn-a-simple-socket-into-an-ssl-socket
+
+## SSL Certs
+
 
 ## OOP
 Dynamic Ptr to Struct Allocation: https://stackoverflow.com/questions/15397728/c-pointer-to-array-of-pointers-to-structures-allocation-deallocation-issues
 Linked Lists Explanation: https://softwareengineering.stackexchange.com/questions/252407/why-is-the-complexity-of-fetching-a-value-from-an-array-be-o1
 
-## SSL
-Adding SSL to sockets: https://stackoverflow.com/questions/7698488/turn-a-simple-socket-into-an-ssl-socket
+## Images
+ssl flowchart: http://h41379.www4.hpe.com/doc/83final/ba554_90007/ch04s03.html
+ssl handshake: http://www-01.ibm.com/support/knowledgecenter
 
 ## General
 File Paths: https://stackoverflow.com/questions/3142365/combine-directory-and-file-path-c

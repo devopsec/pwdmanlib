@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Login page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="UTF-8">
+    <link href="static/bootstrap.min.css" rel="stylesheet" media="screen">
+</head>
+
+<body>
+
+<style type="text/css">
+    #main-container{
+        text-align: center;
+        margin: auto;
+        position: absolute;
+        top: 0; left: 0; bottom: 0; right: 0;
+    }
+
+    #login-container {
+        background-color: rgba(72,72,72,0.4);
+        padding-top: 10px;
+        padding-bottom: 10px;
+        width: 60%;
+        height: 400px;
+        margin-top: 10%;
+        margin-bottom: 10%;
+        -moz-border-radius: 7px;
+        -webkit-border-radius: 7px;
+        box-shadow: 0 0 10px rgba(234, 92, 18, 1);
+    }
+
+    #login-form {
+        width: 100%;
+        height: 100%;
+        max-height: 280px;
+        padding-top: 10px;
+    }
+
+    input {
+        background-color: rgba(255,255,255,0.8);
+        -webkit-transition: all 0.30s ease-in-out;
+        -moz-transition: all 0.30s ease-in-out;
+        -ms-transition: all 0.30s ease-in-out;
+        -o-transition: all 0.30s ease-in-out;
+        width: 75%;
+        height: 40px;
+        outline: none;
+        border: 2px solid #DDDDDD;
+        color: black;
+        text-align: center;
+        font-size: 18px;
+    }
+
+    input:focus {
+        box-shadow: 0 0 10px rgba(234, 92, 18, 1);
+        border: 1px solid rgba(234, 92, 18, 1);
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+
+    input:hover {
+        box-shadow: 0 0 10px rgba(234, 92, 18, 1);
+        border: 2px solid rgba(234, 92, 18, 1);
+    }
+
+    ::-webkit-input-placeholder { /* Chrome */
+        color: black;
+    }
+    :-ms-input-placeholder { /* IE 10+ */
+        color: black;
+    }
+    ::-moz-placeholder { /* Firefox 19+ */
+        color: black;
+        opacity: 1;
+    }
+    :-moz-placeholder { /* Firefox 4 - 18 */
+        color: black;
+        opacity: 1;
+    }
+</style>
+
+<div class="container" id="main-container">
+
+    <div class="container" id="login-container">
+        <h1>Please login</h1>
+        <br><br>
+        <form name="login-form" method="post" id="login-form">
+            <input type="text" placeholder="Username" name="username" value="username" id="username">
+            <br><br><br>
+            <input type="password" placeholder="Password" name="password" value="password" id="password">
+            <br><br><br>
+            <input class="btn" type="submit" value="Login" id="submit" onclick="validate()">
+        </form>
+        <!-- TODO: add register form -->
+
+        <!-- TODO: change this to js / hidden with css
+        {% if error %}
+        <p class="error"><strong>Error:</strong> {{ error }} </p>
+        {% endif %}
+        -->
+    </div>
+</div>
+
+<script type="text/javascript">
+    var attempt = 3; /* count number of attempts */
+    function validate() {
+        var username = document.getElementById("username").value;
+        var password = document.getElementById("password").value;
+        if ( username == "Formget" && password == "formget#123"){
+            alert ("Login successfully");
+            window.location = "success.html"; // Redirecting to other page.
+            return false;
+        }
+        else{
+            attempt --;// Decrementing by one.
+            alert("You have left "+attempt+" attempt;");
+            /* Disabling fields after 3 attempts. */
+            if( attempt == 0){
+                document.getElementById("username").disabled = true;
+                document.getElementById("password").disabled = true;
+                document.getElementById("submit").disabled = true;
+                return false;
+            }
+        }
+    }
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,1 @@
+/usr/bin/cc  -g   CMakeFiles/client.dir/client/client_v2.c.o  -o /pwdmanlib/bin/client  -L/usr/local/boost_1_63_0/libs -rdynamic /usr/local/lib/libssl.so /usr/local/lib/libcrypto.so -Wl,-rpath,/usr/local/boost_1_63_0/libs:/usr/local/lib 
