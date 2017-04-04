@@ -44,12 +44,8 @@
               "path == Path to dir containing resources to serve to client.\n"\
               "Path defaults to dir where server was started from.\n"\
               "port == Port to listen for client connections (need su/root for < 1024)\n"\
-              "Port defaults to 65501.\nTo exit program press Ctrl+C.\n"
-
-/* function declarations */
-
-
-
+              "Port defaults to 65501.\nTo exit program press Ctrl+C.\n"\
+              "Note: must be run with elevated priveledges (as root user).\n"
 
 /* TODO: section into library functions */
 int main(int argc, char *argv[]) {
@@ -69,6 +65,12 @@ int main(int argc, char *argv[]) {
         exit(-1);
     }
 
+    short ret = isRoot();
+    if (ret == -1) {
+        printf("Server must be executed as root/sudo user\n");
+        exit(1);
+    }
+
     /*          parse the cmd line args          */
     if (argc > 4 || argc < 0) { /* both args are optional */
         printf("Too many command line args provided.\n%s", USAGE);
@@ -77,7 +79,7 @@ int main(int argc, char *argv[]) {
 
     unsigned short option_flag = 0;
     char *token, *delim = " ";
-    /* TODO: change to strtok_r == POSIX, strtok_s == WIN for portablility */
+    /* TODO: change to self implemented parser for portablility */
     while ((token = strsep(argv, delim)) != NULL) {
         if (option_flag != 0) {
             if (option_flag == 1) {
@@ -138,7 +140,7 @@ int main(int argc, char *argv[]) {
     if (listen_sock) {
         close(listen_sock);
     }
-    destroySSL();
+    destroySSL(NULL, NULL);
     exit(sig_action_flag);
 }
 

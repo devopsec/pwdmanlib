@@ -119,5 +119,6 @@
     Also, note that the project will be licensed under Apache License V2 now instead of GPL  to be more openly consumable and flexible for anyone to use the libraries!<br>
     Many changes coming upstream, the underlying architecture has been laid out, although much of it needs wrappers still.<br>
     The server is close to complete and database is well underway as well. Many neat oop functions nested in there too.<br>
-    Biicode as a dependency is being deprecated as well and we are going with bash scripts for dependencies and make or cmake for build.
+    Biicode as a dependency is being deprecated as well and we are going with bash scripts for dependencies and make or cmake for build.<br>
+    Alpha release is on hold.. The first iteration of development on this project has finished. SSL cert validation currently is broken and needs vetted.
 </p>

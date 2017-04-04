@@ -24,41 +24,56 @@
  *                        SSL Implementation Functions                          *
  ********************************************************************************/
 
-//#include <openssl/applink.c>
 #include <openssl/bio.h>
 #include <openssl/ssl.h>
 #include <openssl/err.h>
 #include <openssl/crypto.h>
 #include <openssl/pem.h>
+#include <openssl/opensslv.h>
+//#include <engine.h>
 //#include <conf.h>
+//#include <openssl/applink.c>
 
 #include "validation/openssl_validation.h"
 #include "util/constants.h"
 
 /* Function Pre-Declarations */
-void        initSSL();
-void        destroySSL();
-void        shutdownSSL(SSL *ssl, SSL_CTX *ctx);
-SSL_CTX     *initServerCTX();
-SSL         *configServerSSL(int worker_sock);
-SSL_CTX     *initClientCTX();
-SSL         *configClientSSL(int connect_sock);
-void        showCerts(SSL *ssl);
-void        loadCerts(SSL_CTX *ctx, const char *cert_file, const char *key_file);
-void        configCAStack(const char *cafile, const char *capath, SSL_CTX *ctx);
-void        logSSLErr(const char *msg, FILE *log);
-void        printSSLErr(const char *msg);
-int         sendall(SSL *ssl, char *strbuf, int *len);
-int         readall(SSL *ssl, char *buf);
+static void        initSSL();
+static void        destroySSL(SSL *cSSL, SSL_CTX *ctx);
+static void        shutdownSSL(SSL *ssl, SSL_CTX *ctx);
+SSL_CTX            *initServerCTX();
+SSL                *configServerSSL(int worker_sock);
+SSL_CTX            *initClientCTX();
+SSL                *configClientSSL(int connect_sock);
+static void        showCerts(SSL *ssl);
+static void        loadCerts(SSL_CTX *ctx, const char *cert_file, const char *key_file);
+static void        configCAStack(const char *cafile, const char *capath, SSL_CTX *ctx);
+static void        logSSLErr(const char *msg, FILE *log);
+static void        printSSLErr(const char *msg);
+static int         sendall(SSL *ssl, char *strbuf, int *len);
+static int         readall(SSL *ssl, char *buf);
 
-void initSSL() {
-    if ((SSL_library_init()) == 0) {
-        fprintf(stderr, "SSL_library_init() error\n");
+static void initSSL() {
+#if OPENSSL_VERSION_NUMBER < 0x10100000L
+    SSL_library_init();
+    OpenSSL_add_all_algorithms();
+    SSL_load_error_strings();
+    ERR_load_crypto_strings();
+#else
+    OPENSSL_init();
+    if (OPENSSL_init_ssl(OPENSSL_INIT_LOAD_SSL_STRINGS | OPENSSL_INIT_LOAD_CRYPTO_STRINGS, NULL) == 0) {
+        fprintf(stderr, "OPENSSL_init_ssl() error: could not init library\n");
         exit(-1);
     }
-    ERR_load_crypto_strings();
-    SSL_load_error_strings();
-    OpenSSL_add_all_algorithms();
+
+    if (OPENSSL_init_crypto(OPENSSL_INIT_ADD_ALL_CIPHERS | OPENSSL_INIT_ADD_ALL_DIGESTS, NULL) == 0) {
+        fprintf(stderr, "OPENSSL_init_crypto() error: could not init library\n");
+        exit(-1);
+    }
+
+    ERR_load_BIO_strings();
+    ERR_load_PEM_strings();
+#endif
 }
 
 SSL_CTX *initServerCTX() {
@@ -89,11 +104,11 @@ SSL *configServerSSL(int worker_sock) {
     const char *capath    =    NULL;
     SSL_CTX *ctx;
 
-    /* initialize ssl libraries */
+    /* initialize ssl libraries & contex */
     initSSL();
+    ctx = initServerCTX();
 
     /* set SSL contex configurations and options */
-    ctx = initServerCTX();
     if (!ctx) { /* ensure we set the reference ptr */
         printSSLErr("initServerCTX() error: ctx is NULL");
     }
@@ -101,9 +116,9 @@ SSL *configServerSSL(int worker_sock) {
     /* Enable certificate validation */
     SSL_CTX_set_verify(ctx, SSL_VERIFY_PEER | SSL_VERIFY_FAIL_IF_NO_PEER_CERT, NULL);
     SSL_CTX_set_verify_depth(ctx, 4);
-
-//    SSL_CTX_set_ecdh_auto(ctx, 1);
-//    SSL_CTX_set_options(ctx, SSL_OP_SINGLE_DH_USE);
+//    SSL_CTX_set_cert_verify_callback();
+//    SSL_CTX_set_client_CA_list(ssl_ctx,SSL_load_client_CA_file("client_chain.pem"));
+//    SSL_CTX_set_options(ctx, SSL_OP_ALL);
 
     /* set certs to use for SSL */
     loadCerts(ctx, cert, key);
@@ -137,10 +152,6 @@ SSL_CTX *initClientCTX() {
         printSSLErr("initClientCTX() error: ctx is NULL");
     }
 
-    if ( ctx == NULL ) {
-        perror("initClientCTX() error\n");
-        ERR_print_errors_fp(stderr);
-    }
     return ctx;
 }
 
@@ -160,63 +171,80 @@ SSL *configClientSSL(int connect_sock) {
 //    SSL_CTX_set_ecdh_auto(ctx, 1);
 //    SSL_CTX_set_options(ctx, SSL_OP_SINGLE_DH_USE);
 
-    /* Enable certificate validation */
+    /* enable certificate validation */
     SSL_CTX_set_verify(ctx, SSL_VERIFY_PEER, NULL);
+//    SSL_CTX_set_mode(ctx, SSL_MODE_AUTO_RETRY);
 
-    /* Configure the CA trust stack to be used */
+    /* configure client to authenticate using CA trust stack */
     if (SSL_CTX_load_verify_locations(ctx, rootCA, NULL) != 1) {
         printSSLErr("SSL_CTX_load_verify_locations() error: Couldn't load CA Stack");
         SSL_CTX_free(ctx);
-        destroySSL();
+        destroySSL(NULL, NULL);
         close(connect_sock);
         exit(-1);
     }
 
     /* create new SSL connection */
     SSL *cSSL = SSL_new(ctx);
+    if (!cSSL) {
+        printSSLErr("SSL_new() error: Could not create SSL struct");
+        shutdownSSL(cSSL, ctx);
+        destroySSL(NULL, NULL);
+        close(connect_sock);
+        exit(-1);
+    }
 
-    /* attach SSL layer to sock */
-    SSL_set_fd(cSSL, connect_sock);
+    /* attach SSL layer to sock (I/O directed through sock now) */
+    status = SSL_set_fd(cSSL, connect_sock);
+    if (status == 0) {
+        printSSLErr("SSL_set_fd() error: Could not attach to sock");
+        shutdownSSL(cSSL, ctx);
+        destroySSL(NULL, NULL);
+        close(connect_sock);
+        exit(-1);
+    }
 
     /* establish connection & start TLS/SSL handshake */
     status = SSL_connect(cSSL);
-
+    long verify_result = SSL_get_verify_result(cSSL);
     if (status <= 0) { /* error occurred */
-        long verify_err = SSL_get_verify_result(cSSL);
+        if (verify_result != X509_V_OK) {
+            switch (verify_result) {
+                //TODO
+            }
 
-        if (verify_err != X509_V_OK) {
             fprintf(stderr, "SSL_accept() error: Certificate Chain validation failed (Fatal Error):\n");
             printSSLErr(X509_verify_cert_error_string(status));
-
+            // retry handshake, handling error, or exit
         }
         else {
             printSSLErr("SSL_accept() error: handshake was not successful (Fatal Error)");
         }
 
         shutdownSSL(cSSL, ctx);
-        destroySSL();
+        destroySSL(NULL, NULL);
         close(connect_sock);
         exit(-1);
     }
 
     showCerts(cSSL); // DEBUG
 
-    /* Recover certificate (sent from server) */
+    /* receive certificate (sent from server) */
     recv_cert =  SSL_get_peer_certificate(cSSL);
     if (!recv_cert) {
         printSSLErr("SSL_get_peer_certificate() error: Server did not provide a certificate");
         shutdownSSL(cSSL, ctx);
-        destroySSL();
+        destroySSL(NULL, NULL);
         close(connect_sock);
         exit(-1);
     }
 
-    /* Validate servers hostname */
+    /* Validate server hostname */
     if (validate_hostname("devopsec.net", recv_cert) != MatchFound) {
         fprintf(stderr, "Hostname validation failed.\n");
         printSSLErr("SSL_get_peer_certificate() error: Server did not provide a certificate");
         shutdownSSL(cSSL, ctx);
-        destroySSL();
+        destroySSL(NULL, NULL);
         close(connect_sock);
         exit(-1);
     }
@@ -224,7 +252,8 @@ SSL *configClientSSL(int connect_sock) {
     return cSSL;
 }
 
-void loadCerts(SSL_CTX *ctx, const char *cert_file, const char *key_file) {
+/** load public certificate and private key into SSL ctx provided **/
+static void loadCerts(SSL_CTX *ctx, const char *cert_file, const char *key_file) {
     /* public key */
     if (SSL_CTX_use_certificate_file(ctx, cert_file , SSL_FILETYPE_PEM) != 1) {
         perror("SSL_CTX_use_certificate_file() error\n");
@@ -253,7 +282,7 @@ void loadCerts(SSL_CTX *ctx, const char *cert_file, const char *key_file) {
  *    -  key identifier (if present), and                            *
  *    -  serial number as taken from the certificate to be verified. *
  *********************************************************************/
-void configCAStack(const char *cafile, const char *capath, SSL_CTX *ctx) {
+static void configCAStack(const char *cafile, const char *capath, SSL_CTX *ctx) {
     int status;
 
     status = SSL_CTX_load_verify_locations(ctx, cafile, capath);
@@ -270,8 +299,8 @@ void configCAStack(const char *cafile, const char *capath, SSL_CTX *ctx) {
     }
 }
 
-/** Print SSL certs to stdout **/
-void showCerts(SSL *ssl) {
+/** Print received SSL cert to stdout **/
+static void showCerts(SSL *ssl) {
     char *line;
 
     X509 *cert = SSL_get_peer_certificate(ssl);	/* Get certificates (if available) */
@@ -286,13 +315,13 @@ void showCerts(SSL *ssl) {
         X509_free(cert);
     }
     else {
-        printf("No certificates.\n");
+        printf("No certificates were found\n");
     }
 }
 
-/** Print the oneline notation of a Subject DN and Issuer DN to stream  *
- *  pass in a stream fp to write to file or pass in stdout for tty out **/
-void printSubjOneline(X509 *cert, FILE *fp) {
+/** Print the oneline notation of a Subject DN and Issuer DN to stream **
+ ** pass in a stream fp to write to file or pass in stdout for tty out **/
+static void printSubjOneline(X509 *cert, FILE *fp) {
     char *ptr;
     int   n;
 
@@ -309,7 +338,7 @@ void printSubjOneline(X509 *cert, FILE *fp) {
 }
 
 /** Log SSL error details to file **/
-void logSSLErr(const char *msg, FILE *log) {
+static void logSSLErr(const char *msg, FILE *log) {
     fprintf(log, msg);
     fprintf(log, "Error: %s\n", ERR_reason_error_string(ERR_get_error()));
     fprintf(log, "%s\n", ERR_error_string(ERR_get_error(), NULL));
@@ -317,19 +346,22 @@ void logSSLErr(const char *msg, FILE *log) {
 }
 
 /** Print SSL error details to stdout **/
-void printSSLErr(const char *msg) {
+static void printSSLErr(const char *msg) {
     fprintf(stderr, msg);
     fprintf(stderr, "Error: %s\n", ERR_reason_error_string(ERR_get_error()));
     fprintf(stderr, "%s\n", ERR_error_string(ERR_get_error(), NULL));
     ERR_print_errors_fp(stderr);
 }
 
-void destroySSL() {
+static void destroySSL(SSL *cSSL, SSL_CTX *ctx) {
     ERR_free_strings();
     EVP_cleanup();
+    CRYPTO_cleanup_all_ex_data();
+    if (cSSL) { SSL_free(cSSL); }
+    if (ctx) { SSL_CTX_free(ctx); }
 }
 
-void shutdownSSL(SSL *cSSL, SSL_CTX *ctx) {
+static void shutdownSSL(SSL *cSSL, SSL_CTX *ctx) {
     int rv, err;
     ERR_clear_error();
     rv = SSL_shutdown(cSSL);
@@ -353,13 +385,17 @@ void shutdownSSL(SSL *cSSL, SSL_CTX *ctx) {
             break;
     }
 
-    if (cSSL) { SSL_free(cSSL); }
-    if (ctx) { SSL_CTX_free(ctx); }
+    FIPS_mode_set(0);
+    #if OPENSSL_VERSION_NUMBER < 0x10100000L
+        CONF_modules_unload(1);
+        ENGINE_cleanup();
+        ERR_remove_state();
+    #endif
 }
 
-/*=========== Reading and Writing to sock using SSL ===========*/
-/* ensure kernel doesn't hold onto our data */
-int sendall(SSL *ssl, char *strbuf, int *len) {
+/*==== Reading and Writing to & from sock using SSL encryption ====*/
+/** ensure kernel doesn't hold onto our data, write until finished */
+static int sendall(SSL *ssl, char *strbuf, int *len) {
     int total = 0;            // how many bytes we've sent
     int bytesleft = *len;     // how many we have left to send
     int n = -1;               // bytes sent on current write
@@ -375,8 +411,8 @@ int sendall(SSL *ssl, char *strbuf, int *len) {
     return n < 0 ? n : 0;    // return err on failure, 0 on success
 }
 
-/* read data into buf */
-int readall(SSL *ssl, char *buf) {
+/** read data into buf until all received */
+static int readall(SSL *ssl, char *buf) {
     int total = 0;           // how many bytes we've read
     int n;
 
@@ -389,8 +425,8 @@ int readall(SSL *ssl, char *buf) {
             break;
         }
     } while (n != 0);
-
-    return n < 0 ? n : 0; // return err on failure, 0 on success
+    /* return err on failure, 0 on success */
+    return n < 0 ? n : 0;
 }
 
 #endif //PWDMANLIB_SSL_H

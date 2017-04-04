@@ -67,6 +67,7 @@ void respond(int worker_sock, char *root_dir);
 int sendall(SSL *ssl, char *strbuf, int *len);
 int readall(SSL *ssl, char *buf);
 
+short isRoot();
 char **parseHeader(char *str);
 Request parseRequest(char *req);
 char **parseQueryStr(char *str, size_t *num_qtokens);
@@ -92,8 +93,6 @@ void start_server(char *port) { //int listen_sock
         perror("Error occurred while getting server address info\n");
         exit(1);
     }
-
-    initSSL();
 
     /* loop through all the results and bind to the first we can */
     for (p = servinfo; p != NULL; p = p->ai_next) { /*  bind the sock  */
@@ -417,30 +416,39 @@ void parent_sig_handler(int signo) {
         printf("\nReceived SIGHUP\n");
 //        sig_action_flag = 1;
         if (listen_sock) { close(listen_sock); }
-        destroySSL();
+        destroySSL(NULL, NULL);
         exit(1);
     }
     else if (signo == SIGINT) {
         printf("\nReceived SIGINT\n");
 //        sig_action_flag = 2;
         if (listen_sock) { close(listen_sock); }
-        destroySSL();
+        destroySSL(NULL, NULL);
         exit(2);
     }
     else if (signo == SIGQUIT) {
         printf("\nReceived SIGQUIT\n");
 //        sig_action_flag = 3;
         if (listen_sock) { close(listen_sock); }
-        destroySSL();
+        destroySSL(NULL, NULL);
         exit(3);
     }
     else if (signo == SIGSEGV) {
         printf("\nMemory allocation error occurred\n");
 //        sig_action_flag = -1;
         if (listen_sock) { close(listen_sock); }
-        destroySSL();
+        destroySSL(NULL, NULL);
         exit(4);
     }
+}
+
+/**  0 == run as root user **
+ ** -1 == not root accnt   **/
+short isRoot() {
+    if (getuid() != 0) {
+        return -1;
+    }
+    return 0;
 }
 
 /** get sockaddr, IPv4 or IPv6: **/
